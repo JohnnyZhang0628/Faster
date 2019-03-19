@@ -7,3 +7,6 @@ D:\WorkSpace\Faster\Model\obj\Debug\netstandard2.0\Model.AssemblyInfoInputs.cach
 D:\WorkSpace\Faster\Model\obj\Debug\netstandard2.0\Model.AssemblyInfo.cs
 D:\WorkSpace\Faster\Model\obj\Debug\netstandard2.0\Model.dll
 D:\WorkSpace\Faster\Model\obj\Debug\netstandard2.0\Model.pdb
+D:\WorkSpace\Faster\Model\bin\Debug\netstandard2.0\Faster.dll
+D:\WorkSpace\Faster\Model\bin\Debug\netstandard2.0\Faster.pdb
+D:\WorkSpace\Faster\Model\obj\Debug\netstandard2.0\Model.csproj.CopyComplete
