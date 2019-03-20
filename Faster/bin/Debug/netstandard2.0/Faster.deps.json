@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "1a12dc5f83a103500acc47a6ec4a4b389727ab2c"
+    "signature": "ec695b15e1206af408d3d02c71ba1c0d575db08d"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,6 +10,7 @@
       "Faster/1.0.0": {
         "dependencies": {
           "Dapper": "1.60.1",
+          "Microsoft.CSharp": "4.5.0",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
@@ -26,6 +27,14 @@
           "lib/netstandard2.0/Dapper.dll": {
             "assemblyVersion": "1.60.0.0",
             "fileVersion": "1.60.1.8373"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.CSharp.dll": {
+            "assemblyVersion": "4.0.4.0",
+            "fileVersion": "4.6.26515.6"
           }
         }
       },
@@ -251,6 +260,13 @@
       "sha512": "sha512-zevW+iN5vYLIdsUb1ye6uHh4nJU5qxFWWvkOBCb3qAgOcc0065U0TBFMhWB3z2qLE6iLItiRVLZqusfWSSZZ1A==",
       "path": "dapper/1.60.1",
       "hashPath": "dapper.1.60.1.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EGoBmf3Na2ppbhPePDE9PlX81r1HuOZH5twBrq7couJZiPTjUnD3648balerQJO6EJ8Sj+43+XuRwQ7r+3tE3w==",
+      "path": "microsoft.csharp/4.5.0",
+      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",
