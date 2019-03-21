@@ -36,9 +36,10 @@ namespace Faster
                 {
                     var column = new Column();
                     column.Name = item.Name;
+                    column.Alias = item.Name;
                     var colAttribute = item.GetCustomAttribute(typeof(FasterColumnAttribute)) as FasterColumnAttribute;
                     if (colAttribute != null && colAttribute.ColumnName != null)
-                        column.Name = (colAttribute as FasterColumnAttribute).ColumnName;
+                        column.Alias = (colAttribute as FasterColumnAttribute).ColumnName;
                     var keyAttribute = item.GetCustomAttribute(typeof(FasterKeyAttribute)) as FasterKeyAttribute;
                     if (keyAttribute != null && keyAttribute.Key)
                         column.Key = true;
@@ -62,7 +63,7 @@ namespace Faster
         public static string GetListSql(Type type)
         {
             var myTable = Init(type);
-            return $"select {string.Join(",", myTable.Columns.Select(m => "[" + m.Name + "]"))} from {myTable.Name} ";
+            return $"select {string.Join(",", myTable.Columns.Select(m => "[" + m.Alias + "]"))} from {myTable.Name} ";
         }
 
 
@@ -70,8 +71,8 @@ namespace Faster
         public static string GetSql(Type type)
         {
             var myTable = Init(type);
-            return $"select {string.Join(",", myTable.Columns.Select(m => "[" + m.Name + "]"))} from {myTable.Name} " +
-                $"where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Name}]=@{m.Name}"))}";
+            return $"select {string.Join(",", myTable.Columns.Select(m => "[" + m.Alias + "]"))} from {myTable.Name} " +
+                $"where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Alias}]=@{m.Name}"))}";
         }
 
         public static string GetInsertSql(Type type)
@@ -79,20 +80,20 @@ namespace Faster
             var myTable = Init(type);
             // 剔除设置为主键并且类型为int的，因为可能是自增长ID
             var columns = myTable.Columns.Where(m => m.Key != true || m.Type != typeof(int));
-            return $"insert into {myTable.Name} ({string.Join(",", columns.Select(p => $"[{p.Name}]"))}) " +
-                $"values({string.Join(",", columns.Select(p => $"@{p.Name}"))})";
+            return $"insert into {myTable.Name} ({string.Join(",", columns.Select(m => $"[{m.Alias}]"))}) " +
+                $"values({string.Join(",", columns.Select(m => $"@{m.Name}"))})";
         }
 
         public static string GetUpdateSql(Type type)
         {
             var myTable = Init(type);
-            return $" update {myTable.Name} set {string.Join(",", myTable.Columns.Where(m => m.Key != true).Select(p => $"[{p.Name}]=@{p.Name}"))} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Name}]=@{m.Name}"))}";
+            return $" update {myTable.Name} set {string.Join(",", myTable.Columns.Where(m => m.Key != true).Select(m => $"[{m.Alias}]=@{m.Name}"))} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Alias}]=@{m.Name}"))}";
         }
 
         public static string GetDeleteSql(Type type)
         {
             var myTable = Init(type);
-            return $" delete {myTable.Name} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Name}]=@{m.Name}"))}";
+            return $" delete {myTable.Name} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Alias}]=@{m.Name}"))}";
         }
     }
 
@@ -109,9 +110,13 @@ namespace Faster
     public class Column
     {
         /// <summary>
-        /// 列名称
+        /// 字段名称
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// 别名
+        /// </summary>
+        public string Alias { get; set; }
         /// <summary>
         /// 列类型
         /// </summary>

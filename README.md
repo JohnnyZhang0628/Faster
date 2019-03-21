@@ -4,7 +4,23 @@
 ### V1.0.0.1 完成基本的增删改查。
 ## 基本的单表的CURD
 ``` C#
-  using (var connection = new SqlConnection(connectionStr))
+[FasterTable(TableName = "tb_user")] //自动映射表的别名
+    public class User
+    {
+        [FasterKey] //设为主键
+        public int UserId { get; set; }
+        [FasterColumn(ColumnName ="user_name")] //设置列的别名
+        [FasterKey] //多个主键
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
+
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
+    }
+
+   using (var connection = new SqlConnection(connectionStr))
             {
                 //新增
                 for (int i = 0; i < 10000; i++)
@@ -20,21 +36,21 @@
 
                 //查询
                 var list = connection.GetList<User>();
-
-                var user = connection.Get<User>(1);
+				//多主键查询
+                var user = connection.Get<User>(1, "张强0");
 
                 //修改
                 var updateRow = connection.Update<User>(new User
                 {
                     UserId = 1,
-                    UserName = "zq",
+                    UserName = "张强0",
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"
                 });
 
-                //删除
+                //多主键删除
 
-                var deleteRow = connection.Remove<User>(10000);
+                var deleteRow = connection.Remove<User>(2, "张强1");
             }
 ```

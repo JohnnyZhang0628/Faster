@@ -33,13 +33,13 @@ namespace UnitTest
                 //查询
                 var list = connection.GetList<User>();
 
-                var user = connection.Get<User>(1);
+                var user = connection.Get<User>(1, "张强0");
 
                 //修改
                 var updateRow = connection.Update<User>(new User
                 {
                     UserId = 1,
-                    UserName = "zq",
+                    UserName = "张强0",
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"
@@ -47,7 +47,7 @@ namespace UnitTest
 
                 //删除
 
-                var deleteRow = connection.Remove<User>(10000);
+                var deleteRow = connection.Remove<User>(2, "张强1");
             }
             //var getSql = FasterCore.GetSql(typeof(User));
             //var getListSql = FasterCore.GetListSql(typeof(User));
