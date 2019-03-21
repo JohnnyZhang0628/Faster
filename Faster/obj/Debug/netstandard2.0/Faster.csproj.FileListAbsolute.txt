@@ -6,4 +6,3 @@ D:\WorkSpace\Faster\Faster\obj\Debug\netstandard2.0\Faster.AssemblyInfoInputs.ca
 D:\WorkSpace\Faster\Faster\obj\Debug\netstandard2.0\Faster.AssemblyInfo.cs
 D:\WorkSpace\Faster\Faster\obj\Debug\netstandard2.0\Faster.dll
 D:\WorkSpace\Faster\Faster\obj\Debug\netstandard2.0\Faster.pdb
-D:\WorkSpace\Faster\Faster\obj\Debug\netstandard2.0\Faster.csprojAssemblyReference.cache

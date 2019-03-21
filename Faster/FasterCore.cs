@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -14,89 +15,110 @@ namespace Faster
 
         static StringBuilder strSql = new StringBuilder();
 
-        /// <summary>
-        /// 获取表名称
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        static string GetTableName(Type type)
-        {
-            string tableName = type.Name;
-            //获取表名
-            var classAttribute = type.GetCustomAttribute(typeof(FasterTableAttribute)) as FasterTableAttribute;
-            if (classAttribute != null && classAttribute.TableName != null)
-                tableName = (classAttribute as FasterTableAttribute).TableName;
-            return tableName;
-        }
-        /// <summary>
-        /// 获取列
-        /// </summary>
-        static IEnumerable<string> GetColumns(Type type)
-        {
-            List<string> columnList = new List<string>();
-            foreach (var item in type.GetProperties())
-            {
-                string columnName = item.Name;
-                var propAttribute = item.GetCustomAttribute(typeof(FasterColumnAttribute)) as FasterColumnAttribute;
-                if (propAttribute != null)
-                {
-                    if (propAttribute.ColumnName != null)
-                        columnName = (propAttribute as FasterColumnAttribute).ColumnName;
 
-                }
+        static Dictionary<string, Table> cacheDic = new Dictionary<string, Table>();
 
-                columnList.Add("[" + columnName + "]");
-            }
-            return columnList;
-        }
-        /// <summary>
-        /// 获取主键
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> GetKeys(Type type)
+        public static Table Init(Type type)
         {
-            List<string> keyList = new List<string>();
-            foreach (var item in type.GetProperties())
-            {
-                var propAttribute = item.GetCustomAttribute(typeof(FasterKeyAttribute)) as FasterKeyAttribute;
-                if (propAttribute != null && propAttribute.Key)
-                {
-                    keyList.Add(item.Name);
-                }
-            }
-            if (keyList.Count == 0)
-                throw new Exception($"{type.Name} class must have a key");
+            if (cacheDic.ContainsKey(type.Name))
+                return cacheDic[type.Name];
             else
-                return keyList;
+            {
+                var myTable = new Table();
+                myTable.Name = "[" + type.Name + "]";
+                //获取表名
+                var classAttribute = type.GetCustomAttribute(typeof(FasterTableAttribute)) as FasterTableAttribute;
+                if (classAttribute != null && classAttribute.TableName != null)
+                    myTable.Name = "[" + (classAttribute as FasterTableAttribute).TableName + "]";
+
+                //获取列
+                foreach (var item in type.GetProperties())
+                {
+                    var column = new Column();
+                    column.Name = item.Name;
+                    var colAttribute = item.GetCustomAttribute(typeof(FasterColumnAttribute)) as FasterColumnAttribute;
+                    if (colAttribute != null && colAttribute.ColumnName != null)
+                        column.Name = (colAttribute as FasterColumnAttribute).ColumnName;
+                    var keyAttribute = item.GetCustomAttribute(typeof(FasterKeyAttribute)) as FasterKeyAttribute;
+                    if (keyAttribute != null && keyAttribute.Key)
+                        column.Key = true;
+
+                    column.Type = item.PropertyType;
+                    myTable.Columns.Add(column);
+                }
+
+                //判断有没有主键、
+                if (myTable.Columns.Where(m => m.Key == true).Count() == 0)
+                    throw new Exception($"{type.Name} class must have a key");
+                else
+                {
+                    cacheDic.Add(type.Name, myTable);
+                    return myTable;
+                }
+            }
         }
+
 
         public static string GetListSql(Type type)
         {
-            return $"select {string.Join(",", GetColumns(type))} from [{GetTableName(type)}] ";
+            var myTable = Init(type);
+            return $"select {string.Join(",", myTable.Columns.Select(m => "[" + m.Name + "]"))} from {myTable.Name} ";
         }
 
-       
+
 
         public static string GetSql(Type type)
         {
-            return $"select {string.Join(",", GetColumns(type))} from [{GetTableName(type)}] where {string.Join(" and ", GetKeys(type).Select(m => $"{m}=@{m}"))}";
+            var myTable = Init(type);
+            return $"select {string.Join(",", myTable.Columns.Select(m => "[" + m.Name + "]"))} from {myTable.Name} " +
+                $"where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Name}]=@{m.Name}"))}";
         }
 
         public static string GetInsertSql(Type type)
         {
-            var columns = GetColumns(type);
-            return $"insert into [{GetTableName(type)}] ({string.Join(",", type.GetProperties().Select(p => $"[{p.Name}]"))}) values({string.Join(",", type.GetProperties().Select(p => $"@{p.Name}"))})";
+            var myTable = Init(type);
+            // 剔除设置为主键并且类型为int的，因为可能是自增长ID
+            var columns = myTable.Columns.Where(m => m.Key != true || m.Type != typeof(int));
+            return $"insert into {myTable.Name} ({string.Join(",", columns.Select(p => $"[{p.Name}]"))}) " +
+                $"values({string.Join(",", columns.Select(p => $"@{p.Name}"))})";
         }
 
         public static string GetUpdateSql(Type type)
         {
-            return $" update {GetTableName(type)} set {string.Join(",", type.GetProperties().Select(p => $"[{p.Name}]=@{p.Name}"))} where {string.Join(" and ", GetKeys(type).Select(m => $"{m}=@{m}"))}";
+            var myTable = Init(type);
+            return $" update {myTable.Name} set {string.Join(",", myTable.Columns.Where(m => m.Key != true).Select(p => $"[{p.Name}]=@{p.Name}"))} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Name}]=@{m.Name}"))}";
         }
 
         public static string GetDeleteSql(Type type)
         {
-            return $" delete {GetTableName(type)} where {string.Join(" and ", GetKeys(type).Select(m => $"{m}=@{m}"))}";
+            var myTable = Init(type);
+            return $" delete {myTable.Name} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Name}]=@{m.Name}"))}";
         }
+    }
+
+    public class Table
+    {
+        /// <summary>
+        /// 表名称
+        /// </summary>
+        public string Name { get; set; }
+
+        public List<Column> Columns { get; set; } = new List<Column>();
+    }
+
+    public class Column
+    {
+        /// <summary>
+        /// 列名称
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// 列类型
+        /// </summary>
+        public Type Type { get; set; }
+        /// <summary>
+        /// 是否为主键
+        /// </summary>
+        public bool Key { get; set; } = false;
     }
 }
