@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using Dapper;
 
 namespace Faster
 {
@@ -78,10 +74,16 @@ namespace Faster
         public static string GetInsertSql(Type type)
         {
             var myTable = Init(type);
-            // 剔除设置为主键并且类型为int的，因为可能是自增长ID
-            var columns = myTable.Columns.Where(m => m.Key != true || m.Type != typeof(int));
-            return $"insert into {myTable.Name} ({string.Join(",", columns.Select(m => $"[{m.Alias}]"))}) " +
-                $"values({string.Join(",", columns.Select(m => $"@{m.Name}"))})";
+            // 当且仅当主键个数为1且类型为int类型的时候认为是自增长ID
+            if (myTable.Columns.Where(m => m.Key == true && m.Type == typeof(int)).Count() == 1)
+            {
+                var columns = myTable.Columns.Where(m => m.Key != true || m.Type != typeof(int));
+                return $"insert into {myTable.Name} ({string.Join(",", columns.Select(m => $"[{m.Alias}]"))}) " +
+               $"values({string.Join(",", columns.Select(m => $"@{m.Name}"))})";
+            }
+            else
+                return $"insert into {myTable.Name} ({string.Join(",", myTable.Columns.Select(m => $"[{m.Alias}]"))}) " +
+              $"values({string.Join(",", myTable.Columns.Select(m => $"@{m.Name}"))})";
         }
 
         public static string GetUpdateSql(Type type)
@@ -94,6 +96,24 @@ namespace Faster
         {
             var myTable = Init(type);
             return $" delete {myTable.Name} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"[{m.Alias}]=@{m.Name}"))}";
+        }
+
+        public static string GetCountSql(Type type)
+        {
+            var myTable = Init(type);
+            return $" select count(*) from {myTable.Name} ";
+        }
+
+        public static string GetPageListSql(Type type, string order, string strWhere = "", int pageNum = 1, int PageSize = 10)
+        {
+            var myTable = Init(type);
+            string strColumns = string.Join(",", myTable.Columns.Select(m => "[" + m.Alias + "]"));
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append($" select {strColumns} from ");
+            strSql.Append($"( select row_number() over(order by {order}) as pageNum,{strColumns} from {myTable.Name}  {strWhere} ) t");
+            strSql.Append($" where pageNum between {(pageNum - 1) * PageSize} and {pageNum * PageSize} ");
+
+            return strSql.ToString();
         }
     }
 

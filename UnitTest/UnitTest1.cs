@@ -4,56 +4,69 @@ using Model;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Repository;
+using Service;
+using System.Collections.Generic;
 
 namespace UnitTest
 {
     [TestClass]
     public class UnitTest1
     {
-        string connectionStr = "server=.;database=test;user id=sa;password=55969126";
+
 
         [TestMethod]
         public void TestMethod1()
         {
 
-            using (var connection = new SqlConnection(connectionStr))
+            IUserRepository repository = new UserService();
+
+            //批量新增
+            List<User> userList = new List<User>();
+            for (int i = 0; i < 10000; i++)
             {
-                //新增
-                for (int i = 0; i < 10000; i++)
+                userList.Add(new User
                 {
-                    connection.Add<User>(new User
-                    {
-                        UserName = "张强" + i,
-                        Password = "123456",
-                        Email = "237183141@qq.com",
-                        Phone = "18516328675"
-                    });
-                }
+                    UserName = "张强" + (i+1),
+                    Password = "123456",
+                    Email = "237183141@qq.com",
+                    Phone = "18516328675"
+                });
+            }
+            repository.Add(userList);
 
-                //查询
-                var list = connection.GetList<User>();
-
-                var user = connection.Get<User>(1, "张强0");
-
-                //修改
-                var updateRow = connection.Update<User>(new User
+            //批量修改
+            userList = new List<User>();
+            for (int i = 0; i < 100; i++)
+            {
+                userList.Add(new User
                 {
-                    UserId = 1,
-                    UserName = "张强0",
+                    UserId = i+1 ,
+                    UserName = "张强" + (i+1),
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"
                 });
-
-                //删除
-
-                var deleteRow = connection.Remove<User>(2, "张强1");
             }
-            //var getSql = FasterCore.GetSql(typeof(User));
-            //var getListSql = FasterCore.GetListSql(typeof(User));
-            //var insertSql = FasterCore.GetInsertSql(typeof(User));
-            //var updateSql = FasterCore.GetUpdateSql(typeof(User));
-            //var deleteSql = FasterCore.GetDeleteSql(typeof(User));
+            repository.Update(userList);
+
+            //根据主键查询
+            User user = repository.Get<User>(1, "张强1");
+            //根据条件查询 
+            var query = repository.GetList<User>(" where userid>@id", new { id = 10 });
+            //分页查询
+            var result = repository.GetPageList<User>("userid ", " where userid>@id", new { id = 10 }, 2, 20);
+            // 满足条件总页数
+            int count = result.Item1;
+            // 第20条，到40条
+            IEnumerable<User> list = result.Item2;
+
+            // 根据主键删除
+            int delRow = repository.Remove<User>(1, "张强1");
+
+
+            //用户自定义接口
+            repository.Login("zq", "123456");
 
         }
 

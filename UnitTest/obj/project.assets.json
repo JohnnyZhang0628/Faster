@@ -1757,6 +1757,32 @@
         "runtime": {
           "bin/placeholder/Model.dll": {}
         }
+      },
+      "Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Faster": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Repository.dll": {}
+        }
+      },
+      "Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Repository": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Service.dll": {}
+        }
       }
     }
   },
@@ -6288,6 +6314,16 @@
       "type": "project",
       "path": "../Model/Model.csproj",
       "msbuildProject": "../Model/Model.csproj"
+    },
+    "Repository/1.0.0": {
+      "type": "project",
+      "path": "../Repository/Repository.csproj",
+      "msbuildProject": "../Repository/Repository.csproj"
+    },
+    "Service/1.0.0": {
+      "type": "project",
+      "path": "../Service/Service.csproj",
+      "msbuildProject": "../Service/Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6297,7 +6333,9 @@
       "MSTest.TestFramework >= 1.3.2",
       "Microsoft.NET.Test.Sdk >= 15.9.0",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Model >= 1.0.0"
+      "Model >= 1.0.0",
+      "Repository >= 1.0.0",
+      "Service >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6335,6 +6373,12 @@
             },
             "D:\\WorkSpace\\Faster\\Model\\Model.csproj": {
               "projectPath": "D:\\WorkSpace\\Faster\\Model\\Model.csproj"
+            },
+            "D:\\WorkSpace\\Faster\\Repository\\Repository.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\Repository\\Repository.csproj"
+            },
+            "D:\\WorkSpace\\Faster\\Service\\Service.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\Service\\Service.csproj"
             }
           }
         }

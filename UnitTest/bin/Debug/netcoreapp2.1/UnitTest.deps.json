@@ -12,7 +12,9 @@
           "MSTest.TestAdapter": "1.3.2",
           "MSTest.TestFramework": "1.3.2",
           "Microsoft.NET.Test.Sdk": "15.9.0",
-          "Model": "1.0.0"
+          "Model": "1.0.0",
+          "Repository": "1.0.0",
+          "Service": "1.0.0"
         },
         "runtime": {
           "UnitTest.dll": {}
@@ -1120,6 +1122,22 @@
         "runtime": {
           "Model.dll": {}
         }
+      },
+      "Repository/1.0.0": {
+        "dependencies": {
+          "Faster": "1.0.0"
+        },
+        "runtime": {
+          "Repository.dll": {}
+        }
+      },
+      "Service/1.0.0": {
+        "dependencies": {
+          "Repository": "1.0.0"
+        },
+        "runtime": {
+          "Service.dll": {}
+        }
       }
     }
   },
@@ -1688,6 +1706,16 @@
       "sha512": ""
     },
     "Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Service/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

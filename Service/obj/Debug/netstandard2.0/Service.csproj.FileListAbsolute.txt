@@ -1,0 +1,14 @@
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Service.deps.json
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Service.dll
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Service.pdb
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Faster.dll
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Repository.dll
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Repository.pdb
+D:\WorkSpace\Faster\Service\bin\Debug\netstandard2.0\Faster.pdb
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.csprojAssemblyReference.cache
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.AssemblyInfoInputs.cache
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.AssemblyInfo.cs
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.csproj.CopyComplete
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.dll
+D:\WorkSpace\Faster\Service\obj\Debug\netstandard2.0\Service.pdb

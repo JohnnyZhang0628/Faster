@@ -17,3 +17,7 @@ D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.AssemblyInfo.cs
 D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.csproj.CopyComplete
 D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.dll
 D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.pdb
+D:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Repository.dll
+D:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Service.dll
+D:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Repository.pdb
+D:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Service.pdb
