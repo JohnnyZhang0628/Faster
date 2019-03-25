@@ -1,13 +1,16 @@
 # Faster
 ## 基于Dapper的ORM框架，更小、更快是作者追求的目标。
+## 邮箱：237183141@qq.com
 ## 版本
 ### V1.0.0.1 完成基本的增删改查。
 ### V1.0.0.2 新增分页查询，仓储和服务为以后手写IOC做准备
+### V1.0.0.3 新增DB First和Code First两种模式。
 ## 基本的单表的CURD
 ``` C#
 [FasterTable(TableName = "tb_user")] //自动映射表的别名
     public class User
     {
+		[FasterIdentity] //自增长ID
         [FasterKey] //设为主键
         public int UserId { get; set; }
         [FasterColumn(ColumnName ="user_name")] //设置列的别名
@@ -20,7 +23,16 @@
 
         public string Phone { get; set; }
     }
-	 IUserRepository repository = new UserService();
+            var _dbConnection = new SqlConnection("server=.;database=test;user id=sa;password=55969126");
+
+            //Code First 根据model生成表
+            string modelPath = @"E:\WorkSpace\Faster\Model\bin\Debug\netstandard2.0\Model.dll";
+            _dbConnection.CreateTable(modelPath);
+
+            //DB First 根据数据库生成model(当前项目debug 下面的Model文件夹)
+            _dbConnection.CreateModels();
+
+            IUserRepository repository = new UserService();
 
             //批量新增
             List<User> userList = new List<User>();
@@ -28,7 +40,7 @@
             {
                 userList.Add(new User
                 {
-                    UserName = "张强" + (i+1),
+                    UserName = "张强" + (i + 1),
                     Password = "123456",
                     Email = "237183141@qq.com",
                     Phone = "18516328675"
@@ -42,8 +54,8 @@
             {
                 userList.Add(new User
                 {
-                    UserId = i+1 ,
-                    UserName = "张强" + (i+1),
+                    UserId = i + 1,
+                    UserName = "张强" + (i + 1),
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"

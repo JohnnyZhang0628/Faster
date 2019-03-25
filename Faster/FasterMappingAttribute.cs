@@ -32,4 +32,13 @@ namespace Faster
         public bool Key { get; set; } = true;
     }
 
+    [AttributeUsage(AttributeTargets.Property, Inherited = true)]
+    public class FasterIdentityAttribute : Attribute
+    {
+        /// <summary>
+        /// 自增长
+        /// </summary>
+        public bool Identity { get; set; } = true;
+    }
+
 }

@@ -1,12 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Faster;
 using Model;
-using System.Data;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
 using Repository;
 using Service;
 using System.Collections.Generic;
+using Faster;
+using System.Data.SqlClient;
+using System;
 
 namespace UnitTest
 {
@@ -18,6 +17,14 @@ namespace UnitTest
         [TestMethod]
         public void TestMethod1()
         {
+            var _dbConnection = new SqlConnection("server=.;database=test;user id=sa;password=55969126");
+
+            //Code First
+            string modelPath = @"E:\WorkSpace\Faster\Model\bin\Debug\netstandard2.0\Model.dll";
+            _dbConnection.CreateTable(modelPath);
+
+            //DB First
+            _dbConnection.CreateModels();
 
             IUserRepository repository = new UserService();
 
@@ -27,7 +34,7 @@ namespace UnitTest
             {
                 userList.Add(new User
                 {
-                    UserName = "张强" + (i+1),
+                    UserName = "张强" + (i + 1),
                     Password = "123456",
                     Email = "237183141@qq.com",
                     Phone = "18516328675"
@@ -41,8 +48,8 @@ namespace UnitTest
             {
                 userList.Add(new User
                 {
-                    UserId = i+1 ,
-                    UserName = "张强" + (i+1),
+                    UserId = i + 1,
+                    UserName = "张强" + (i + 1),
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"

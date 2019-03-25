@@ -1,0 +1,10 @@
+using Faster;
+
+namespace @nameSpace
+{
+    public class @tableName
+    {
+        @code
+    }
+    
+}

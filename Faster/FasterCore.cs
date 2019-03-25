@@ -11,8 +11,9 @@ namespace Faster
 
         static StringBuilder strSql = new StringBuilder();
 
-
+        //缓存类
         static Dictionary<string, Table> cacheDic = new Dictionary<string, Table>();
+
 
         public static Table Init(Type type)
         {
@@ -33,14 +34,19 @@ namespace Faster
                     var column = new Column();
                     column.Name = item.Name;
                     column.Alias = item.Name;
+                    //别名
                     var colAttribute = item.GetCustomAttribute(typeof(FasterColumnAttribute)) as FasterColumnAttribute;
-                    if (colAttribute != null && colAttribute.ColumnName != null)
+                    if (colAttribute != null && colAttribute.ColumnName != null) 
                         column.Alias = (colAttribute as FasterColumnAttribute).ColumnName;
+                    //主键
                     var keyAttribute = item.GetCustomAttribute(typeof(FasterKeyAttribute)) as FasterKeyAttribute;
                     if (keyAttribute != null && keyAttribute.Key)
                         column.Key = true;
-
-                    column.Type = item.PropertyType;
+                    //自增长ID
+                    var identityAttribute = item.GetCustomAttribute(typeof(FasterIdentityAttribute)) as FasterIdentityAttribute;
+                    if (identityAttribute != null && identityAttribute.Identity)
+                        column.Identity = true;
+                    column.Type = item.PropertyType.Name;
                     myTable.Columns.Add(column);
                 }
 
@@ -74,16 +80,12 @@ namespace Faster
         public static string GetInsertSql(Type type)
         {
             var myTable = Init(type);
-            // 当且仅当主键个数为1且类型为int类型的时候认为是自增长ID
-            if (myTable.Columns.Where(m => m.Key == true && m.Type == typeof(int)).Count() == 1)
-            {
-                var columns = myTable.Columns.Where(m => m.Key != true || m.Type != typeof(int));
-                return $"insert into {myTable.Name} ({string.Join(",", columns.Select(m => $"[{m.Alias}]"))}) " +
-               $"values({string.Join(",", columns.Select(m => $"@{m.Name}"))})";
-            }
-            else
-                return $"insert into {myTable.Name} ({string.Join(",", myTable.Columns.Select(m => $"[{m.Alias}]"))}) " +
-              $"values({string.Join(",", myTable.Columns.Select(m => $"@{m.Name}"))})";
+
+            //去掉自增长ID
+            var query = myTable.Columns.Where(m => m.Identity == false);
+
+            return $"insert into {myTable.Name} ({string.Join(",", query.Select(m => $"[{m.Alias}]"))}) " +
+          $"values({string.Join(",", query.Select(m => $"@{m.Name}"))})";
         }
 
         public static string GetUpdateSql(Type type)
@@ -115,35 +117,18 @@ namespace Faster
 
             return strSql.ToString();
         }
+
+        /// <summary>
+        /// 获取dll下所有的类
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static Type[] GetTypesByDll(string path)
+        {
+            StringBuilder strSql = new StringBuilder();
+            Assembly assembly = Assembly.LoadFile(path);
+            return assembly.GetTypes();
+        }
     }
 
-    public class Table
-    {
-        /// <summary>
-        /// 表名称
-        /// </summary>
-        public string Name { get; set; }
-
-        public List<Column> Columns { get; set; } = new List<Column>();
-    }
-
-    public class Column
-    {
-        /// <summary>
-        /// 字段名称
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// 别名
-        /// </summary>
-        public string Alias { get; set; }
-        /// <summary>
-        /// 列类型
-        /// </summary>
-        public Type Type { get; set; }
-        /// <summary>
-        /// 是否为主键
-        /// </summary>
-        public bool Key { get; set; } = false;
-    }
 }

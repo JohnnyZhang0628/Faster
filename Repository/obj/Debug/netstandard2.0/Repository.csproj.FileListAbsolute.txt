@@ -10,3 +10,15 @@ D:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfo.
 D:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.csproj.CopyComplete
 D:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.dll
 D:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.pdb
+E:\WorkSpace\Faster\Repository\bin\Debug\netstandard2.0\Repository.deps.json
+E:\WorkSpace\Faster\Repository\bin\Debug\netstandard2.0\Repository.dll
+E:\WorkSpace\Faster\Repository\bin\Debug\netstandard2.0\Repository.pdb
+E:\WorkSpace\Faster\Repository\bin\Debug\netstandard2.0\Faster.dll
+E:\WorkSpace\Faster\Repository\bin\Debug\netstandard2.0\Faster.pdb
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.csproj.CoreCompileInputs.cache
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfoInputs.cache
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfo.cs
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.csproj.CopyComplete
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.dll
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.pdb
+E:\WorkSpace\Faster\Repository\obj\Debug\netstandard2.0\Repository.csprojAssemblyReference.cache
