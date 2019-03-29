@@ -5,7 +5,6 @@ using System.Reflection;
 
 namespace FasterContainer
 {
-
     public class Container
     {
         private static Dictionary<string, Type> cacheDic = new Dictionary<string, Type>();

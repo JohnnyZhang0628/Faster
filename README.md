@@ -1,17 +1,17 @@
 # Faster
-## ����Dapper��ORM��ܣ���С������������׷���Ŀ�ꡣ
-## ���䣺237183141@qq.com
-## ��лELEVEN��ָ����
-## �汾
-### V1.0.0.1 ��ɻ�������ɾ�Ĳ顣
-### V1.0.0.2 ������ҳ��ѯ���ִ��ͷ���Ϊ�Ժ���дIOC��׼��
-### V1.0.0.3 ����DB First��Code First����ģʽ��
+## 基于Dapper的ORM框架，更小、更快是作者追求的目标。
+## 邮箱：237183141@qq.com
+## 感谢ELEVEN的指导。
+## 版本
+### V1.0.0.1 完成基本的增删改查。
+### V1.0.0.2 新增分页查询，仓储和服务为以后手写IOC做准备
+### V1.0.0.3 新增DB First和Code First两种模式。
 ####db first
 ![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/db_first.png)
 ####code first
 ![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/code_first.png)
-### V1.0.0.4 ����IOC����������ע��
-## �����ĵ����CURD
+### V1.0.0.4 新增IOC容器，依赖注入
+## 基本的单表的CURD
 ``` C#
 	
     [TestClass]
@@ -24,20 +24,20 @@
         public void Init()
         {
            
-            // ��ȡ���ݿ�����
+             // 获取数据库连接
             _dbConnection = BaseService._dbConnection;
-            //IOC ����
-            //1����ȡ����
+			//IOC 测试
+            //1、获取容器
             Container container = new Container();
-            //2��ע������
+            //2、注册类型
             container.RegisterType<IUserRepository, UserService>();
-            //3������ʵ��
+            //3、创建实例
             user = container.Resolve<IUserRepository>();
           
         }
 
         /// <summary>
-        /// ����DB First ��Code First
+        /// 测试DB First 和Code First
         /// </summary>
         [TestMethod]
         public void TestMethodDB()
@@ -55,13 +55,13 @@
         {
             
 
-            //��������
+            //批量新增
             List<User> userList = new List<User>();
             for (int i = 0; i < 10000; i++)
             {
                 userList.Add(new User
                 {
-                    UserName = "��ǿ" + (i + 1),
+                    UserName = "张强" + (i + 1),
                     Password = "123456",
                     Email = "237183141@qq.com",
                     Phone = "18516328675"
@@ -69,14 +69,14 @@
             }
             user.Add(userList);
 
-            //�����޸�
+            //批量修改
             userList = new List<User>();
             for (int i = 0; i < 100; i++)
             {
                 userList.Add(new User
                 {
                     UserId = i + 1,
-                    UserName = "��ǿ" + (i + 1),
+                    UserName = "张强" + (i + 1),
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"
@@ -84,28 +84,28 @@
             }
             user.Update(userList);
 
-            //����������ѯ
-            var userModel = user.Get<User>(1, "��ǿ1");
-            //����������ѯ 
+            //根据主键查询
+            var userModel = user.Get<User>(1, "张强1");
+           //根据条件查询 
             userList = user.GetList<User>(" where userid>@id", new { id = 10 }).ToList();
-            //��ҳ��ѯ
+           //分页查询
             var result = user.GetPageList<User>("userid ", " where userid>@id", new { id = 10 }, 2, 20);
-            // ����������ҳ��
+            // 满足条件总页数
             int count = result.Item1;
-            // ��20������40��
+            // 第20条，到40条
             IEnumerable<User> list = result.Item2;
 
-            // ��������ɾ��
+            // 根据主键删除
             int delRow = user.Remove<User>(1, "��ǿ1");
 
 
-            //�û��Զ���ӿ�
+            //用户自定义接口
             user.Login("zq", "123456");
 
         }
 
         /// <summary>
-        /// ���Դ洢���̲�ѯ
+        /// 测试存储过程查询
         /// </summary>
         [TestMethod]
         public void TestMethodSP()
@@ -116,23 +116,23 @@
        
 
     }
-	// IOCע��������
-	 public class Container
+	// IOC容器
+	public class Container
     {
         private static Dictionary<string, Type> cacheDic = new Dictionary<string, Type>();
         /// <summary>
-        /// ע������
+        /// 注册类型
         /// </summary>
-        /// <typeparam name="IT">������</typeparam>
-        /// <typeparam name="T">����ʵ����</typeparam>
+        /// <typeparam name="IT">抽象类</typeparam>
+        /// <typeparam name="T">抽象实现类</typeparam>
         public void RegisterType<IT, T>()
         {
-            //���û���
+            //设置缓存
             cacheDic.Add(typeof(IT).FullName, typeof(T));
         }
 
         /// <summary>
-        /// ��������
+        /// 创建类型
         /// </summary>
         /// <typeparam name="IT"></typeparam>
         /// <returns></returns>
@@ -146,7 +146,7 @@
 
         private object Create(Type type)
         {
-            //���ȱ�����ԣ����Ҳ�����������
+            //优先标记特性，就找参数个数最多的
             var ctorArray = type.GetConstructors();
             ConstructorInfo ctor = null;
             if (ctorArray.Where(c => c.IsDefined(typeof(InjectionConstructorAttribute), true)).Count() > 0)
@@ -168,7 +168,7 @@
                 string keyType = para.ParameterType.FullName;
                 if (cacheDic.ContainsKey(keyType))
                 {
-                    object oPara = Create(cacheDic[keyType]);//����ݹ��
+                    object oPara = Create(cacheDic[keyType]);//这里递归的
                     listPara.Add(oPara);
                 }
                 else
@@ -177,15 +177,18 @@
             return Activator.CreateInstance(type, listPara.ToArray());
         }
     }
-	[FasterTable(TableName = "tb_user")] //�Զ�ӳ���ı���
+    [FasterTable(TableName = "tb_user")] //自动映射表的别名
     public class User
     {
-		[FasterIdentity] //������ID
-        [FasterKey] //��Ϊ����
+
+        [FasterIdentity] //自增长ID
+        [FasterKey] //设为主键
         public int UserId { get; set; }
-        [FasterColumn(ColumnName ="user_name")] //�����еı���
-        [FasterKey] //�������
-        public string UserName { get; set; }
+
+
+        [FasterColumn(ColumnName = "user_name")] //设置列的别名
+        [FasterKey] //多个主键
+        public string UserName { get; set; } = "zq";
 
         public string Password { get; set; }
 
@@ -193,7 +196,7 @@
 
         public string Phone { get; set; }
     }
-	// ������ɾ�Ĳ�ӿ�
+	// 基本增删改查接口
 	public interface IRepository
     {
         IEnumerable<T> GetList<T>(string strWhere = "",object param=null);
@@ -208,7 +211,7 @@
     }
 	public abstract class BaseService : IRepository
     {
-        // ��̬���캯��ʵ�ֵ���
+        // 静态构造函数实现单例
         public static IDbConnection _dbConnection;
 
         static BaseService()
@@ -247,7 +250,7 @@
             return _dbConnection.GetPageList<T>(order, strWhere, param, pageNum, PageSize);
         }
     }
-	// �û��̳нӿںͻ���ʵ����
+	// 用户继承接口和基本实现类
 	public class UserService : BaseService, IUserRepository
     {
         public bool Login(string username, string password)
