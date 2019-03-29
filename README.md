@@ -1,13 +1,17 @@
 # Faster
-## »ùÓÚDapperµÄORM¿ò¼Ü£¬¸üÐ¡¡¢¸ü¿ìÊÇ×÷Õß×·ÇóµÄÄ¿±ê¡£
-## ÓÊÏä£º237183141@qq.com
-## ¸ÐÐ»ELEVENµÄÖ¸µ¼¡£
-## °æ±¾
-### V1.0.0.1 Íê³É»ù±¾µÄÔöÉ¾¸Ä²é¡£
-### V1.0.0.2 ÐÂÔö·ÖÒ³²éÑ¯£¬²Ö´¢ºÍ·þÎñÎªÒÔºóÊÖÐ´IOC×ö×¼±¸
-### V1.0.0.3 ÐÂÔöDB FirstºÍCode FirstÁ½ÖÖÄ£Ê½¡£
-### V1.0.0.4 ÐÂÔöIOCÈÝÆ÷£¬ÒÀÀµ×¢Èë
-## »ù±¾µÄµ¥±íµÄCURD
+## ï¿½ï¿½ï¿½ï¿½Dapperï¿½ï¿½ORMï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½Ä¿ï¿½ê¡£
+## ï¿½ï¿½ï¿½ä£º237183141@qq.com
+## ï¿½ï¿½Ð»ELEVENï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+## ï¿½æ±¾
+### V1.0.0.1 ï¿½ï¿½É»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½Ä²é¡£
+### V1.0.0.2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Í·ï¿½ï¿½ï¿½Îªï¿½Ôºï¿½ï¿½ï¿½Ð´IOCï¿½ï¿½×¼ï¿½ï¿½
+### V1.0.0.3 ï¿½ï¿½ï¿½ï¿½DB Firstï¿½ï¿½Code Firstï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½
+####db first
+![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/db_first.png)
+####code first
+![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/code_first.png)
+### V1.0.0.4 ï¿½ï¿½ï¿½ï¿½IOCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
+## ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½CURD
 ``` C#
 	
     [TestClass]
@@ -20,20 +24,20 @@
         public void Init()
         {
            
-            // »ñÈ¡Êý¾Ý¿âÁ¬½Ó
+            // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
             _dbConnection = BaseService._dbConnection;
-            //IOC ²âÊÔ
-            //1¡¢»ñÈ¡ÈÝÆ÷
+            //IOC ï¿½ï¿½ï¿½ï¿½
+            //1ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
             Container container = new Container();
-            //2¡¢×¢²áÀàÐÍ
+            //2ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             container.RegisterType<IUserRepository, UserService>();
-            //3¡¢´´½¨ÊµÀý
+            //3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
             user = container.Resolve<IUserRepository>();
           
         }
 
         /// <summary>
-        /// ²âÊÔDB First ºÍCode First
+        /// ï¿½ï¿½ï¿½ï¿½DB First ï¿½ï¿½Code First
         /// </summary>
         [TestMethod]
         public void TestMethodDB()
@@ -51,13 +55,13 @@
         {
             
 
-            //ÅúÁ¿ÐÂÔö
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             List<User> userList = new List<User>();
             for (int i = 0; i < 10000; i++)
             {
                 userList.Add(new User
                 {
-                    UserName = "ÕÅÇ¿" + (i + 1),
+                    UserName = "ï¿½ï¿½Ç¿" + (i + 1),
                     Password = "123456",
                     Email = "237183141@qq.com",
                     Phone = "18516328675"
@@ -65,14 +69,14 @@
             }
             user.Add(userList);
 
-            //ÅúÁ¿ÐÞ¸Ä
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
             userList = new List<User>();
             for (int i = 0; i < 100; i++)
             {
                 userList.Add(new User
                 {
                     UserId = i + 1,
-                    UserName = "ÕÅÇ¿" + (i + 1),
+                    UserName = "ï¿½ï¿½Ç¿" + (i + 1),
                     Password = "zq",
                     Email = "zq@qq.com",
                     Phone = "zq"
@@ -80,28 +84,28 @@
             }
             user.Update(userList);
 
-            //¸ù¾ÝÖ÷¼ü²éÑ¯
-            var userModel = user.Get<User>(1, "ÕÅÇ¿1");
-            //¸ù¾ÝÌõ¼þ²éÑ¯ 
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯
+            var userModel = user.Get<User>(1, "ï¿½ï¿½Ç¿1");
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ 
             userList = user.GetList<User>(" where userid>@id", new { id = 10 }).ToList();
-            //·ÖÒ³²éÑ¯
+            //ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯
             var result = user.GetPageList<User>("userid ", " where userid>@id", new { id = 10 }, 2, 20);
-            // Âú×ãÌõ¼þ×ÜÒ³Êý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
             int count = result.Item1;
-            // µÚ20Ìõ£¬µ½40Ìõ
+            // ï¿½ï¿½20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½40ï¿½ï¿½
             IEnumerable<User> list = result.Item2;
 
-            // ¸ù¾ÝÖ÷¼üÉ¾³ý
-            int delRow = user.Remove<User>(1, "ÕÅÇ¿1");
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
+            int delRow = user.Remove<User>(1, "ï¿½ï¿½Ç¿1");
 
 
-            //ÓÃ»§×Ô¶¨Òå½Ó¿Ú
+            //ï¿½Ã»ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ó¿ï¿½
             user.Login("zq", "123456");
 
         }
 
         /// <summary>
-        /// ²âÊÔ´æ´¢¹ý³Ì²éÑ¯
+        /// ï¿½ï¿½ï¿½Ô´æ´¢ï¿½ï¿½ï¿½Ì²ï¿½Ñ¯
         /// </summary>
         [TestMethod]
         public void TestMethodSP()
@@ -112,23 +116,23 @@
        
 
     }
-	// IOC×¢ÈëÈÝÆ÷Àà
+	// IOC×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 public class Container
     {
         private static Dictionary<string, Type> cacheDic = new Dictionary<string, Type>();
         /// <summary>
-        /// ×¢²áÀàÐÍ
+        /// ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
-        /// <typeparam name="IT">³éÏóÀà</typeparam>
-        /// <typeparam name="T">³éÏóÊµÏÖÀà</typeparam>
+        /// <typeparam name="IT">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</typeparam>
+        /// <typeparam name="T">ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½</typeparam>
         public void RegisterType<IT, T>()
         {
-            //ÉèÖÃ»º´æ
+            //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
             cacheDic.Add(typeof(IT).FullName, typeof(T));
         }
 
         /// <summary>
-        /// ´´½¨ÀàÐÍ
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         /// <typeparam name="IT"></typeparam>
         /// <returns></returns>
@@ -142,7 +146,7 @@
 
         private object Create(Type type)
         {
-            //ÓÅÏÈ±ê¼ÇÌØÐÔ£¬¾ÍÕÒ²ÎÊý¸öÊý×î¶àµÄ
+            //ï¿½ï¿½ï¿½È±ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             var ctorArray = type.GetConstructors();
             ConstructorInfo ctor = null;
             if (ctorArray.Where(c => c.IsDefined(typeof(InjectionConstructorAttribute), true)).Count() > 0)
@@ -164,7 +168,7 @@
                 string keyType = para.ParameterType.FullName;
                 if (cacheDic.ContainsKey(keyType))
                 {
-                    object oPara = Create(cacheDic[keyType]);//ÕâÀïµÝ¹éµÄ
+                    object oPara = Create(cacheDic[keyType]);//ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½
                     listPara.Add(oPara);
                 }
                 else
@@ -173,14 +177,14 @@
             return Activator.CreateInstance(type, listPara.ToArray());
         }
     }
-	[FasterTable(TableName = "tb_user")] //×Ô¶¯Ó³Éä±íµÄ±ðÃû
+	[FasterTable(TableName = "tb_user")] //ï¿½Ô¶ï¿½Ó³ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
     public class User
     {
-		[FasterIdentity] //×ÔÔö³¤ID
-        [FasterKey] //ÉèÎªÖ÷¼ü
+		[FasterIdentity] //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
+        [FasterKey] //ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
         public int UserId { get; set; }
-        [FasterColumn(ColumnName ="user_name")] //ÉèÖÃÁÐµÄ±ðÃû
-        [FasterKey] //¶à¸öÖ÷¼ü
+        [FasterColumn(ColumnName ="user_name")] //ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ±ï¿½ï¿½ï¿½
+        [FasterKey] //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         public string UserName { get; set; }
 
         public string Password { get; set; }
@@ -189,7 +193,7 @@
 
         public string Phone { get; set; }
     }
-	// »ù±¾ÔöÉ¾¸Ä²é½Ó¿Ú
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½Ä²ï¿½Ó¿ï¿½
 	public interface IRepository
     {
         IEnumerable<T> GetList<T>(string strWhere = "",object param=null);
@@ -204,7 +208,7 @@
     }
 	public abstract class BaseService : IRepository
     {
-        // ¾²Ì¬¹¹Ôìº¯ÊýÊµÏÖµ¥Àý
+        // ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
         public static IDbConnection _dbConnection;
 
         static BaseService()
@@ -243,7 +247,7 @@
             return _dbConnection.GetPageList<T>(order, strWhere, param, pageNum, PageSize);
         }
     }
-	// ÓÃ»§¼Ì³Ð½Ó¿ÚºÍ»ù±¾ÊµÏÖÀà
+	// ï¿½Ã»ï¿½ï¿½Ì³Ð½Ó¿ÚºÍ»ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
 	public class UserService : BaseService, IUserRepository
     {
         public bool Login(string username, string password)
