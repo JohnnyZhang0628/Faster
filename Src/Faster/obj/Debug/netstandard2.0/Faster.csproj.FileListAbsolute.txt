@@ -21,7 +21,6 @@ E:\WorkSpace\Faster\Faster\obj\Debug\netstandard2.0\Faster.Properties.Resources.
 D:\WorkSpace\Faster\Src\Faster\bin\Debug\netstandard2.0\Faster.deps.json
 D:\WorkSpace\Faster\Src\Faster\bin\Debug\netstandard2.0\Faster.dll
 D:\WorkSpace\Faster\Src\Faster\bin\Debug\netstandard2.0\Faster.pdb
-D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.csprojAssemblyReference.cache
 D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.Properties.Resources.resources
 D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.csproj.GenerateResource.cache
 D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.csproj.CoreCompileInputs.cache

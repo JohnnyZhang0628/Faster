@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WorkSpace\\Faster\\FasterContainer\\FasterContainer.csproj",
+      "projectUniqueName": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj",
       "projectName": "FasterContainer",
-      "projectPath": "D:\\WorkSpace\\Faster\\FasterContainer\\FasterContainer.csproj",
+      "projectPath": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj",
       "packagesPath": "C:\\Users\\Administrator.USER-20181216DP\\.nuget\\packages\\",
-      "outputPath": "D:\\WorkSpace\\Faster\\FasterContainer\\obj\\",
+      "outputPath": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

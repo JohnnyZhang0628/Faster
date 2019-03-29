@@ -6322,8 +6322,8 @@
     },
     "FasterContainer/1.0.0": {
       "type": "project",
-      "path": "../FasterContainer/FasterContainer.csproj",
-      "msbuildProject": "../FasterContainer/FasterContainer.csproj"
+      "path": "../Src/FasterContainer/FasterContainer.csproj",
+      "msbuildProject": "../Src/FasterContainer/FasterContainer.csproj"
     },
     "Model/1.0.0": {
       "type": "project",
@@ -6383,8 +6383,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\WorkSpace\\Faster\\FasterContainer\\FasterContainer.csproj": {
-              "projectPath": "D:\\WorkSpace\\Faster\\FasterContainer\\FasterContainer.csproj"
+            "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj"
             },
             "D:\\WorkSpace\\Faster\\Src\\Model\\Model.csproj": {
               "projectPath": "D:\\WorkSpace\\Faster\\Src\\Model\\Model.csproj"

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FasterContainer\FasterContainer.csproj" />
+    <ProjectReference Include="..\Src\FasterContainer\FasterContainer.csproj" />
     <ProjectReference Include="..\Src\Model\Model.csproj" />
     <ProjectReference Include="..\Src\Repository\Repository.csproj" />
     <ProjectReference Include="..\Src\Service\Service.csproj" />
