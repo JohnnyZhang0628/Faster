@@ -6,9 +6,9 @@
 ### V1.0.0.1 完成基本的增删改查。
 ### V1.0.0.2 新增分页查询，仓储和服务为以后手写IOC做准备
 ### V1.0.0.3 新增DB First和Code First两种模式。
-####db first
+### db first
 ![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/db_first.png)
-####code first
+### code first
 ![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/code_first.png)
 ### V1.0.0.4 新增IOC容器，依赖注入
 ## 基本的单表的CURD
@@ -96,7 +96,7 @@
             IEnumerable<User> list = result.Item2;
 
             // 根据主键删除
-            int delRow = user.Remove<User>(1, "��ǿ1");
+            int delRow = user.Remove<User>(1, "张强1");
 
 
             //用户自定义接口
