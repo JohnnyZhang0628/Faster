@@ -1,0 +1,9 @@
+D:\WorkSpace\Faster\FasterContainer\bin\Debug\netstandard2.0\FasterContainer.deps.json
+D:\WorkSpace\Faster\FasterContainer\bin\Debug\netstandard2.0\FasterContainer.dll
+D:\WorkSpace\Faster\FasterContainer\bin\Debug\netstandard2.0\FasterContainer.pdb
+D:\WorkSpace\Faster\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.csprojAssemblyReference.cache
+D:\WorkSpace\Faster\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.csproj.CoreCompileInputs.cache
+D:\WorkSpace\Faster\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.AssemblyInfoInputs.cache
+D:\WorkSpace\Faster\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.AssemblyInfo.cs
+D:\WorkSpace\Faster\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.dll
+D:\WorkSpace\Faster\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.pdb

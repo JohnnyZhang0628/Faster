@@ -44,3 +44,5 @@ E:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Model.pdb
 E:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Repository.pdb
 E:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\Service.pdb
 E:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.csproj.CopyComplete
+D:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\FasterContainer.dll
+D:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\FasterContainer.pdb

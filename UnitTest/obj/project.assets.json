@@ -1745,6 +1745,16 @@
           "bin/placeholder/Faster.dll": {}
         }
       },
+      "FasterContainer/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/FasterContainer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FasterContainer.dll": {}
+        }
+      },
       "Model/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -2263,7 +2273,7 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "aSTPL94NloSiQVL5Len8wbjFKOnoAX/vOh3s3DF6g3c7GUUMLCDvnBhmA72M2iN2AedyA8hpr7m89kzSAKUnJQ==",
+      "sha512": "GmkKfoyerqmsHMn7OZj0AKpcBabD+GaafqphvX2Mw406IwiJRy1pKcKqdCfKJfYmkRyJ6+e+RaUylgdJoDa1jQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
@@ -2552,7 +2562,7 @@
       ]
     },
     "Microsoft.Win32.Registry/4.4.0": {
-      "sha512": "dA36TlNVn/XfrZtmf0fiI/z1nd3Wfp2QVzTdj26pqgP9LFWq0i1hYEUAW50xUjGFYn1+/cP3KGuxT2Yn1OUNBQ==",
+      "sha512": "LJh1PSoqdugrCv7t+k2B919GGdq4PyrntPVlMCMrcz59nsjOstYmtGWSCiFZ3UNpxv2dlsZdcLzJ847uyOlaEA==",
       "type": "package",
       "path": "microsoft.win32.registry/4.4.0",
       "files": [
@@ -3168,7 +3178,7 @@
       ]
     },
     "System.Collections.Immutable/1.2.0": {
-      "sha512": "Cma8cBW6di16ZLibL8LYQ+cLjGzoKxpOTu/faZfDcx94ZjAGq6Nv5RO7+T1YZXqEXTZP9rt1wLVEONVpURtUqw==",
+      "sha512": "ACF5WhVfZ/EkfmVy9wpc3oJCK7koh1GlnXQ4WXW9N4ribzY8aKF6Vr56jD0rNTuUzFvRWDbHuYJ/Qnrtrd/7VA==",
       "type": "package",
       "path": "system.collections.immutable/1.2.0",
       "files": [
@@ -3185,7 +3195,7 @@
       ]
     },
     "System.Collections.NonGeneric/4.0.1": {
-      "sha512": "hMxFT2RhhlffyCdKLDXjx8WEC5JfCvNozAZxCablAuFRH74SCV4AgzE8yJCh/73bFnEoZgJ9MJmkjQ0dJmnKqA==",
+      "sha512": "XDijxhtvTsIFqXB3PbkPztkxnN4ro7kodqLQSg6mOpfWewiJcufYIV0VgO/fG9f79cic6rFfrxuCEtcru8Vz8g==",
       "type": "package",
       "path": "system.collections.nongeneric/4.0.1",
       "files": [
@@ -3224,7 +3234,7 @@
       ]
     },
     "System.Collections.Specialized/4.0.1": {
-      "sha512": "/HKQyVP0yH1I0YtK7KJL/28snxHNH/bi+0lgk/+MbURF6ULhAE31MDI+NZDerNWu264YbxklXCCygISgm+HMug==",
+      "sha512": "2lTt/6eh+HGLg495oLQoFDvLLy9Wk1FTnCw87CywP+Yq0ITi1PD+p5wgxcyw1Zksu/1dLsQmo3ezO2BGRk67tg==",
       "type": "package",
       "path": "system.collections.specialized/4.0.1",
       "files": [
@@ -3263,7 +3273,7 @@
       ]
     },
     "System.ComponentModel/4.0.1": {
-      "sha512": "oBZFnm7seFiVfugsIyOvQCWobNZs7FzqDV/B7tx20Ep/l3UUFCPDkdTnCNaJZTU27zjeODmy2C/cP60u3D4c9w==",
+      "sha512": "3AOvy/bB7s8yAkolZOlqGeLDrPySuYsgkk7hKIBWn5a/Le7V16PDYQIzj7w7hi4UUXXmEmN/ZehNlAi5eD9r5w==",
       "type": "package",
       "path": "system.componentmodel/4.0.1",
       "files": [
@@ -3484,7 +3494,7 @@
       ]
     },
     "System.Data.SqlClient/4.4.0": {
-      "sha512": "fxb9ghn1k1Ua7FFdlvtiBOD4/PsQvD/fk2KnhS+FK7VC6OggEx6P+lP1P0+KMb5V2dqS1+FbR7HCenoqzJMNIA==",
+      "sha512": "yuMDT9o4j0n3XnH7o7EYliyjUYPQ4RBo9tTNA+M6/KQKMcKXKGqHoq2gCb2sEHCRs5HjTwRlwT/F1JVdYaNaDA==",
       "type": "package",
       "path": "system.data.sqlclient/4.4.0",
       "files": [
@@ -3619,7 +3629,7 @@
       ]
     },
     "System.Diagnostics.Process/4.1.0": {
-      "sha512": "mpVZ5bnlSs3tTeJ6jYyDJEIa6tavhAd88lxq1zbYhkkCu0Pno2+gHXcvZcoygq2d8JxW3gojXqNJMTAshduqZA==",
+      "sha512": "S2YC+MwpWZ6e7h2lqNce/ubMjD4vf2Ea/uOEncYNH1/fFXaXlKDM9ig/zCE1rR+wwYzE8FXtvj+1Nymh6oZ9bg==",
       "type": "package",
       "path": "system.diagnostics.process/4.1.0",
       "files": [
@@ -4726,7 +4736,7 @@
       ]
     },
     "System.Reflection.Metadata/1.3.0": {
-      "sha512": "jMSCxA4LSyKBGRDm/WtfkO03FkcgRzHxwvQRib1bm2GZ8ifKM1MX1al6breGCEQK280mdl9uQS7JNPXRYk90jw==",
+      "sha512": "piuaOy0ZH1/nNHMdwFrHP27ToY7SVblMqc+u8oEVf434IcpMmWpuU9aXWhAleRYjnKmfB3VIvGswEwiwptueXg==",
       "type": "package",
       "path": "system.reflection.metadata/1.3.0",
       "files": [
@@ -4799,7 +4809,7 @@
       ]
     },
     "System.Reflection.TypeExtensions/4.4.0": {
-      "sha512": "dkmh/ySlwnXJp/1qYP9uyKkCK1CXR/REFzl7abHcArxBcV91mY2CgrrzSRA5Z/X4MevJWwXsklGRdR3A7K9zbg==",
+      "sha512": "BWYdrACMy1Sbq7Kh1oISS+2qKX1dHhXNpRByG3c6M9i2fhU9BZqO3nFYIabmbZuQwd7svR5zfxNHgmgv2XkkIg==",
       "type": "package",
       "path": "system.reflection.typeextensions/4.4.0",
       "files": [
@@ -5249,7 +5259,7 @@
       ]
     },
     "System.Runtime.Loader/4.0.0": {
-      "sha512": "4UN78GOVU/mbDFcXkEWtetJT/sJ0yic2gGk1HSlSpWI0TDf421xnrZTDZnwNBapk1GQeYN7U1lTj/aQB1by6ow==",
+      "sha512": "AGWrywLI2B15/dnLuFnlHWFjXmq1Tl0kjWaKTHbaJ8T9kIxiQ8YGTtiMQc8rUr49l2JjfZa7QY0KKqlyzA7NNg==",
       "type": "package",
       "path": "system.runtime.loader/4.0.0",
       "files": [
@@ -5333,11 +5343,12 @@
       ]
     },
     "System.Runtime.Serialization.Primitives/4.1.1": {
-      "sha512": "HZ6Du5QrTG8MNJbf4e4qMO3JRAkIboGT5Fk804uZtg3Gq516S7hAqTm2UZKUHa7/6HUGdVy3AqMQKbns06G/cg==",
+      "sha512": "+mqQrrJsDx5yxIq+wLYKHr6pVc08ETOzJFwE3QvWmEwM4CU5RNKGdqu47bk+HGScaT58ZCVFmjwpp0OBUxy1QA==",
       "type": "package",
       "path": "system.runtime.serialization.primitives/4.1.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5405,7 +5416,7 @@
       ]
     },
     "System.Security.AccessControl/4.4.0": {
-      "sha512": "2NRFPX/V81ucKQmqNgGBZrKGH/5ejsvivSGMRum0SMgPnJxwhuNkzVS1+7gC3R2X0f57CtwrPrXPPSe6nOp82g==",
+      "sha512": "UPF+s4KctOCpk7dpBe3QtZ1AzFEHKdhOtiNDLxGnD/nxKsVbsow5OClTy8c7yOObw/Evbv95xRwZfYZ4wLV4fA==",
       "type": "package",
       "path": "system.security.accesscontrol/4.4.0",
       "files": [
@@ -5445,7 +5456,7 @@
       ]
     },
     "System.Security.Principal.Windows/4.4.0": {
-      "sha512": "pP+AOzt1o3jESOuLmf52YQTF7H3Ng9hTnrOESQiqsnl2IbBh1HInsAMHYtoh75iUYV0OIkHmjvveraYB6zM97w==",
+      "sha512": "ynC5BKYwhgON6WH/yPM5ZLKc19wqC13A5fl4hZa5Lf8pQwv1YmbCPKGualWSRhEoOVWH2FzZhOXauER6al4Upg==",
       "type": "package",
       "path": "system.security.principal.windows/4.4.0",
       "files": [
@@ -5552,7 +5563,7 @@
       ]
     },
     "System.Text.Encoding.CodePages/4.4.0": {
-      "sha512": "6JX7ZdaceBiLKLkYt8zJcp4xTJd1uYyXXEkPw6mnlUIjh1gZPIVKPtRXPmY5kLf6DwZmf5YLwR3QUrRonl7l0A==",
+      "sha512": "FpAgMC+BX6OOCiRebYqHP3r3aYU7o0lopPOo4zKyGc5LWXFEYRUaKtoXXvAJ3sP+IDOK/KBxZaiVAdi+QdZ0TA==",
       "type": "package",
       "path": "system.text.encoding.codepages/4.4.0",
       "files": [
@@ -5903,7 +5914,7 @@
       ]
     },
     "System.Threading.Thread/4.0.0": {
-      "sha512": "gIdJqDXlOr5W9zeqFErLw3dsOsiShSCYtF9SEHitACycmvNvY8odf9kiKvp6V7aibc8C4HzzNBkWXjyfn7plbQ==",
+      "sha512": "nuUpkup2FbB4Xf62nwWARtm1wQ457fEyR9KvLsCzBSj1yQTtKuqmlSgw/e6aiwB3CiUEAUbZ1IgEvza/m2SYxA==",
       "type": "package",
       "path": "system.threading.thread/4.0.0",
       "files": [
@@ -5943,7 +5954,7 @@
       ]
     },
     "System.Threading.ThreadPool/4.0.10": {
-      "sha512": "IMXgB5Vf/5Qw1kpoVgJMOvUO1l32aC+qC3OaIZjWJOjvcxuxNWOK2ZTWWYXfij22NHxT2j1yWX5vlAeQWld9vA==",
+      "sha512": "dupLOpVBSXb3G/Ab9utLVbOYxZ+hnq5ExVz6Dk9CBlzXm6Znw1GAIOv5HEjlkECZJz40I8zhhxaJHWVsWO484Q==",
       "type": "package",
       "path": "system.threading.threadpool/4.0.10",
       "files": [
@@ -6229,7 +6240,7 @@
       ]
     },
     "System.Xml.XPath/4.0.1": {
-      "sha512": "UWd1H+1IJ9Wlq5nognZ/XJdyj8qPE4XufBUkAW59ijsCPjZkZe0MUzKKJFBr+ZWBe5Wq1u1d5f2CYgE93uH7DA==",
+      "sha512": "rxtBUK/w9uIL9Kc4idmz4SsoLYfsa+iGgct4qJWOraqtvJB92tCFaFD6Tu4WXnaxduQuqGau771uMjv61vJtZA==",
       "type": "package",
       "path": "system.xml.xpath/4.0.1",
       "files": [
@@ -6268,7 +6279,7 @@
       ]
     },
     "System.Xml.XPath.XmlDocument/4.0.1": {
-      "sha512": "Zm2BdeanuncYs3NhCj4c9e1x3EXFzFBVv2wPEc/Dj4ZbI9R8ecLSR5frAsx4zJCPBtKQreQ7Q/KxJEohJZbfzA==",
+      "sha512": "gQQaCNO5FYxD37SNQvE+yZUNfCt/Y+FgCnead3hu37RsUiwy2cxqRDWPv+Ee+6DlOeV47xaSYYZ6GQW4EhoEXQ==",
       "type": "package",
       "path": "system.xml.xpath.xmldocument/4.0.1",
       "files": [
@@ -6306,28 +6317,33 @@
     },
     "Faster/1.0.0": {
       "type": "project",
-      "path": "../Faster/Faster.csproj",
-      "msbuildProject": "../Faster/Faster.csproj"
+      "path": "../Src/Faster/Faster.csproj",
+      "msbuildProject": "../Src/Faster/Faster.csproj"
+    },
+    "FasterContainer/1.0.0": {
+      "type": "project",
+      "path": "../FasterContainer/FasterContainer.csproj",
+      "msbuildProject": "../FasterContainer/FasterContainer.csproj"
     },
     "Model/1.0.0": {
       "type": "project",
-      "path": "../Model/Model.csproj",
-      "msbuildProject": "../Model/Model.csproj"
+      "path": "../Src/Model/Model.csproj",
+      "msbuildProject": "../Src/Model/Model.csproj"
     },
     "Repository/1.0.0": {
       "type": "project",
-      "path": "../Repository/Repository.csproj",
-      "msbuildProject": "../Repository/Repository.csproj"
+      "path": "../Src/Repository/Repository.csproj",
+      "msbuildProject": "../Src/Repository/Repository.csproj"
     },
     "Service/1.0.0": {
       "type": "project",
-      "path": "../Service/Service.csproj",
-      "msbuildProject": "../Service/Service.csproj"
+      "path": "../Src/Service/Service.csproj",
+      "msbuildProject": "../Src/Service/Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Faster >= 1.0.0",
+      "FasterContainer >= 1.0.0",
       "MSTest.TestAdapter >= 1.3.2",
       "MSTest.TestFramework >= 1.3.2",
       "Microsoft.NET.Test.Sdk >= 15.9.0",
@@ -6338,23 +6354,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\18516\\.nuget\\packages\\": {},
+    "C:\\Users\\Administrator.USER-20181216DP\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WorkSpace\\Faster\\UnitTest\\UnitTest.csproj",
+      "projectUniqueName": "D:\\WorkSpace\\Faster\\UnitTest\\UnitTest.csproj",
       "projectName": "UnitTest",
-      "projectPath": "E:\\WorkSpace\\Faster\\UnitTest\\UnitTest.csproj",
-      "packagesPath": "C:\\Users\\18516\\.nuget\\packages\\",
-      "outputPath": "E:\\WorkSpace\\Faster\\UnitTest\\obj\\",
+      "projectPath": "D:\\WorkSpace\\Faster\\UnitTest\\UnitTest.csproj",
+      "packagesPath": "C:\\Users\\Administrator.USER-20181216DP\\.nuget\\packages\\",
+      "outputPath": "D:\\WorkSpace\\Faster\\UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\18516\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrator.USER-20181216DP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6367,17 +6383,17 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "E:\\WorkSpace\\Faster\\Faster\\Faster.csproj": {
-              "projectPath": "E:\\WorkSpace\\Faster\\Faster\\Faster.csproj"
+            "D:\\WorkSpace\\Faster\\FasterContainer\\FasterContainer.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\FasterContainer\\FasterContainer.csproj"
             },
-            "E:\\WorkSpace\\Faster\\Model\\Model.csproj": {
-              "projectPath": "E:\\WorkSpace\\Faster\\Model\\Model.csproj"
+            "D:\\WorkSpace\\Faster\\Src\\Model\\Model.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\Src\\Model\\Model.csproj"
             },
-            "E:\\WorkSpace\\Faster\\Repository\\Repository.csproj": {
-              "projectPath": "E:\\WorkSpace\\Faster\\Repository\\Repository.csproj"
+            "D:\\WorkSpace\\Faster\\Src\\Repository\\Repository.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\Src\\Repository\\Repository.csproj"
             },
-            "E:\\WorkSpace\\Faster\\Service\\Service.csproj": {
-              "projectPath": "E:\\WorkSpace\\Faster\\Service\\Service.csproj"
+            "D:\\WorkSpace\\Faster\\Src\\Service\\Service.csproj": {
+              "projectPath": "D:\\WorkSpace\\Faster\\Src\\Service\\Service.csproj"
             }
           }
         }

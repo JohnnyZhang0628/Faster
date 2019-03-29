@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Faster\Faster.csproj" />
-    <ProjectReference Include="..\Model\Model.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
-    <ProjectReference Include="..\Service\Service.csproj" />
+    <ProjectReference Include="..\FasterContainer\FasterContainer.csproj" />
+    <ProjectReference Include="..\Src\Model\Model.csproj" />
+    <ProjectReference Include="..\Src\Repository\Repository.csproj" />
+    <ProjectReference Include="..\Src\Service\Service.csproj" />
   </ItemGroup>
 
 </Project>
