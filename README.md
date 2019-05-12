@@ -1,19 +1,23 @@
 # Faster
-## 基于Dapper的ORM框架，更小、更快是作者追求的目标。
+## 基于.net standard 2.0 的ORM框架，更小、更快是作者追求的目标。
 ## 邮箱：237183141@qq.com
-## 感谢ELEVEN的指导。
-## 版本
-### V1.0.0.1 完成基本的增删改查。
-### V1.0.0.2 新增分页查询，仓储和服务为以后手写IOC做准备
-### V1.0.0.3 新增DB First和Code First两种模式。
-### db first
-![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/db_first.png)
-### code first
-![Image text](https://github.com/JohnnyZhang0628/Faster/blob/master/screen/code_first.png)
-### V1.0.0.4 新增IOC容器，依赖注入
+## 大小
+### 50kb
+## 特性
+### 1、支持单表的增删改查、分页。
+### 2、所有查询全部参数化，防止sql注入。
+### 3、支持db first 模式，直接生成model类。code first作者舍弃了。
+### 4、支持IOC，依赖注入。
+## 接口设计模式参考dapper
+## 问题
+### Q:dapper和faster的区别？
+### A:dapper是一款很好的ORM框架，作者开始就是用它的。随着需求的改变（根据实体直接反射数据库，所有sql语句参数化查询，db first，ioc等）
+### dapper已经不能满足我的需求了，所以就出现faster。如果你没有上诉我的这些需求，我推荐你用dapper。如果你需要一些定制化的需求，faster是你
+### 的不二之选。
+
+
 ## 基本的单表的CURD
-``` C#
-	
+``` 
     [TestClass]
     public class UnitTestFaster
     {
@@ -23,17 +27,17 @@
         [TestInitialize]
         public void Init()
         {
-           
-             // 获取数据库连接
+
+            // 获取数据库连接
             _dbConnection = BaseService._dbConnection;
-			//IOC 测试
+            //IOC 测试
             //1、获取容器
             Container container = new Container();
             //2、注册类型
             container.RegisterType<IUserRepository, UserService>();
             //3、创建实例
             user = container.Resolve<IUserRepository>();
-          
+
         }
 
         /// <summary>
@@ -42,10 +46,6 @@
         [TestMethod]
         public void TestMethodDB()
         {
-            //Code First
-            string modelPath = @"D:\WorkSpace\Faster\Src\Model\bin\Debug\netstandard2.0\Model.dll";
-            _dbConnection.CreateTable(modelPath);
-
             //DB First
             _dbConnection.CreateModels();
         }
@@ -53,7 +53,6 @@
         [TestMethod]
         public void TestMethodCURD()
         {
-            
 
             //批量新增
             List<User> userList = new List<User>();
@@ -67,7 +66,7 @@
                     Phone = "18516328675"
                 });
             }
-            user.Add(userList);
+            user.BulkAdd(userList);
 
             //批量修改
             userList = new List<User>();
@@ -82,13 +81,13 @@
                     Phone = "zq"
                 });
             }
-            user.Update(userList);
+            user.BulkUpdate(userList);
 
             //根据主键查询
-            var userModel = user.Get<User>(1, "张强1");
-           //根据条件查询 
+            var userModel = user.Get<User>(new { UserId = 1, UserName = "张强1" });
+            //根据条件查询 
             userList = user.GetList<User>(" where userid>@id", new { id = 10 }).ToList();
-           //分页查询
+            //分页查询
             var result = user.GetPageList<User>("userid ", " where userid>@id", new { id = 10 }, 2, 20);
             // 满足条件总页数
             int count = result.Item1;
@@ -96,11 +95,13 @@
             IEnumerable<User> list = result.Item2;
 
             // 根据主键删除
-            int delRow = user.Remove<User>(1, "张强1");
+            int delRow = user.Remove<User>(new { UserId = 1, UserName = "张强1" });
 
-
-            //用户自定义接口
-            user.Login("zq", "123456");
+            //查询多个数据集
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(" select  * from tb_user where userid >= 10");
+            strSql.Append(" select  * from tb_user where userid >= 100");
+            var multiple = _dbConnection.ExecuteQueryMultiple<User>(strSql.ToString());
 
         }
 
@@ -110,154 +111,27 @@
         [TestMethod]
         public void TestMethodSP()
         {
-            var query = _dbConnection.GetListSP<User>("sp_test");
-        }
+            // no params
+            var query = _dbConnection.ExecuteQuerySP<User>("sp_test_no_params");
 
-       
-
-    }
-	// IOC容器
-	public class Container
-    {
-        private static Dictionary<string, Type> cacheDic = new Dictionary<string, Type>();
-        /// <summary>
-        /// 注册类型
-        /// </summary>
-        /// <typeparam name="IT">抽象类</typeparam>
-        /// <typeparam name="T">抽象实现类</typeparam>
-        public void RegisterType<IT, T>()
-        {
-            //设置缓存
-            cacheDic.Add(typeof(IT).FullName, typeof(T));
-        }
-
-        /// <summary>
-        /// 创建类型
-        /// </summary>
-        /// <typeparam name="IT"></typeparam>
-        /// <returns></returns>
-        public IT Resolve<IT>()
-        {
-            string key = typeof(IT).FullName;
-            Type type = (Type)cacheDic[key];
-            object oValue = Create(type);
-            return (IT)oValue;
-        }
-
-        private object Create(Type type)
-        {
-            //优先标记特性，就找参数个数最多的
-            var ctorArray = type.GetConstructors();
-            ConstructorInfo ctor = null;
-            if (ctorArray.Where(c => c.IsDefined(typeof(InjectionConstructorAttribute), true)).Count() > 0)
+            // query with params
+            IDbDataParameter[] parameters =
             {
-                ctor = ctorArray.Where(c => c.IsDefined(typeof(InjectionConstructorAttribute), true)).FirstOrDefault();
-            }
-            else
+                new SqlParameter("@user_id",2)
+            };
+            query = _dbConnection.ExecuteQuerySP<User>("sp_test", parameters);
+
+
+            //get out params 
+            IDbDataParameter[]  outparameters =
             {
-                ctor = ctorArray.OrderByDescending(c => c.GetParameters().Length).FirstOrDefault();
-            }
-            var paraArray = ctor.GetParameters();
-            if (paraArray.Length == 0)
-            {
-                return Activator.CreateInstance(type);
-            }
-            List<object> listPara = new List<object>();
-            foreach (var para in paraArray)
-            {
-                string keyType = para.ParameterType.FullName;
-                if (cacheDic.ContainsKey(keyType))
-                {
-                    object oPara = Create(cacheDic[keyType]);//这里递归的
-                    listPara.Add(oPara);
-                }
-                else
-                    throw new Exception($"please first register {keyType} type");
-            }
-            return Activator.CreateInstance(type, listPara.ToArray());
+                new SqlParameter { ParameterName = "@count",DbType=DbType.Int32, Direction = ParameterDirection.Output }
+            };
+
+            _dbConnection.ExecuteNonQuerySP("sp_test_out", outparameters);
+
+
+            var count = outparameters[0].Value;
         }
     }
-    [FasterTable(TableName = "tb_user")] //自动映射表的别名
-    public class User
-    {
-
-        [FasterIdentity] //自增长ID
-        [FasterKey] //设为主键
-        public int UserId { get; set; }
-
-
-        [FasterColumn(ColumnName = "user_name")] //设置列的别名
-        [FasterKey] //多个主键
-        public string UserName { get; set; } = "zq";
-
-        public string Password { get; set; }
-
-        public string Email { get; set; }
-
-        public string Phone { get; set; }
-    }
-	// 基本增删改查接口
-	public interface IRepository
-    {
-        IEnumerable<T> GetList<T>(string strWhere = "",object param=null);
-        T Get<T>(params object[] param);
-
-        int Add<T>(IEnumerable<T> modelList);
-
-        int Update<T>(IEnumerable<T> modelList);
-        int Remove<T>(params object[] param);
-        Tuple<int, IEnumerable<T>> GetPageList<T>(string order, string strWhere = "", object param = null, int pageNum = 1, int PageSize = 10);
-
-    }
-	public abstract class BaseService : IRepository
-    {
-        // 静态构造函数实现单例
-        public static IDbConnection _dbConnection;
-
-        static BaseService()
-        {
-            _dbConnection = new SqlConnection("server=.;database=test;user id=sa;password=55969126");
-        }
-
-        public int Add<T>(IEnumerable<T> modelList)
-        {
-            return _dbConnection.Add<T>(modelList);
-        }
-
-        public T Get<T>(params object[] param)
-        {
-            return _dbConnection.Get<T>(param);
-        }
-
-        public IEnumerable<T> GetList<T>(string strWhere = "", object param = null)
-        {
-            return _dbConnection.GetList<T>(strWhere, param);
-        }
-
-        public int Update<T>(IEnumerable<T> modelList)
-        {
-            return _dbConnection.Update<T>(modelList);
-        }
-
-        public int Remove<T>(params object[] param)
-        {
-
-            return _dbConnection.Remove<T>(param);
-        }
-
-        public Tuple<int, IEnumerable<T>> GetPageList<T>(string order, string strWhere = "", object param = null, int pageNum = 1, int PageSize = 10)
-        {
-            return _dbConnection.GetPageList<T>(order, strWhere, param, pageNum, PageSize);
-        }
-    }
-	// 用户继承接口和基本实现类
-	public class UserService : BaseService, IUserRepository
-    {
-        public bool Login(string username, string password)
-        {
-            return true;
-        }
-    }
-
-  
 ```
