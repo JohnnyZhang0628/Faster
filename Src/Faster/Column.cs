@@ -7,6 +7,7 @@ namespace Faster
         /// <summary>
         /// 字段名称
         /// </summary>
+        [FasterKey]
         public string Name { get; set; }
         /// <summary>
         /// 别名

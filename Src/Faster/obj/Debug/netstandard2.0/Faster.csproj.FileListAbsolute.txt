@@ -28,3 +28,13 @@ D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.AssemblyInfoInput
 D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.AssemblyInfo.cs
 D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.dll
 D:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.pdb
+E:\WorkSpace\Faster\Src\Faster\bin\Debug\netstandard2.0\Faster.deps.json
+E:\WorkSpace\Faster\Src\Faster\bin\Debug\netstandard2.0\Faster.dll
+E:\WorkSpace\Faster\Src\Faster\bin\Debug\netstandard2.0\Faster.pdb
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.Properties.Resources.resources
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.csproj.GenerateResource.cache
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.csproj.CoreCompileInputs.cache
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.AssemblyInfoInputs.cache
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.AssemblyInfo.cs
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.dll
+E:\WorkSpace\Faster\Src\Faster\obj\Debug\netstandard2.0\Faster.pdb

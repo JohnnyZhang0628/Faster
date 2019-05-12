@@ -34,3 +34,15 @@ D:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.AssemblyI
 D:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.csproj.CopyComplete
 D:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.dll
 D:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.pdb
+E:\WorkSpace\Faster\Src\Repository\bin\Debug\netstandard2.0\Repository.deps.json
+E:\WorkSpace\Faster\Src\Repository\bin\Debug\netstandard2.0\Repository.dll
+E:\WorkSpace\Faster\Src\Repository\bin\Debug\netstandard2.0\Repository.pdb
+E:\WorkSpace\Faster\Src\Repository\bin\Debug\netstandard2.0\Faster.dll
+E:\WorkSpace\Faster\Src\Repository\bin\Debug\netstandard2.0\Faster.pdb
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.csprojAssemblyReference.cache
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.csproj.CoreCompileInputs.cache
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfoInputs.cache
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfo.cs
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.csproj.CopyComplete
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.dll
+E:\WorkSpace\Faster\Src\Repository\obj\Debug\netstandard2.0\Repository.pdb

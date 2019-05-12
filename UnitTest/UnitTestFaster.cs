@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using Model;
 using Faster;
 using Repository;
@@ -8,6 +7,8 @@ using Service;
 using System.Linq;
 using System.Data;
 using FasterContainer;
+using System.Data.SqlClient;
+using System.Text;
 
 namespace UnitTest
 {
@@ -20,7 +21,7 @@ namespace UnitTest
         [TestInitialize]
         public void Init()
         {
-           
+
             // 获取数据库连接
             _dbConnection = BaseService._dbConnection;
             //IOC 测试
@@ -30,7 +31,7 @@ namespace UnitTest
             container.RegisterType<IUserRepository, UserService>();
             //3、创建实例
             user = container.Resolve<IUserRepository>();
-          
+
         }
 
         /// <summary>
@@ -39,10 +40,6 @@ namespace UnitTest
         [TestMethod]
         public void TestMethodDB()
         {
-            //Code First
-            string modelPath = @"D:\WorkSpace\Faster\Src\Model\bin\Debug\netstandard2.0\Model.dll";
-            _dbConnection.CreateTable(modelPath);
-
             //DB First
             _dbConnection.CreateModels();
         }
@@ -50,7 +47,6 @@ namespace UnitTest
         [TestMethod]
         public void TestMethodCURD()
         {
-            
 
             //批量新增
             List<User> userList = new List<User>();
@@ -64,7 +60,7 @@ namespace UnitTest
                     Phone = "18516328675"
                 });
             }
-            user.Add(userList);
+            user.BulkAdd(userList);
 
             //批量修改
             userList = new List<User>();
@@ -79,10 +75,10 @@ namespace UnitTest
                     Phone = "zq"
                 });
             }
-            user.Update(userList);
+            user.BulkUpdate(userList);
 
             //根据主键查询
-            var userModel = user.Get<User>(1, "张强1");
+            var userModel = user.Get<User>(new { UserId = 1, UserName = "张强1" });
             //根据条件查询 
             userList = user.GetList<User>(" where userid>@id", new { id = 10 }).ToList();
             //分页查询
@@ -93,11 +89,13 @@ namespace UnitTest
             IEnumerable<User> list = result.Item2;
 
             // 根据主键删除
-            int delRow = user.Remove<User>(1, "张强1");
+            int delRow = user.Remove<User>(new { UserId = 1, UserName = "张强1" });
 
-
-            //用户自定义接口
-            user.Login("zq", "123456");
+            //查询多个数据集
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(" select  * from tb_user where userid >= 10");
+            strSql.Append(" select  * from tb_user where userid >= 100");
+            var multiple = _dbConnection.ExecuteQueryMultiple<User>(strSql.ToString());
 
         }
 
@@ -107,7 +105,27 @@ namespace UnitTest
         [TestMethod]
         public void TestMethodSP()
         {
-            var query = _dbConnection.GetListSP<User>("sp_test");
+            // no params
+            var query = _dbConnection.ExecuteQuerySP<User>("sp_test_no_params");
+
+            // query with params
+            IDbDataParameter[] parameters =
+            {
+                new SqlParameter("@user_id",2)
+            };
+            query = _dbConnection.ExecuteQuerySP<User>("sp_test", parameters);
+
+
+            //get out params 
+            IDbDataParameter[]  outparameters =
+            {
+                new SqlParameter { ParameterName = "@count",DbType=DbType.Int32, Direction = ParameterDirection.Output }
+            };
+
+            _dbConnection.ExecuteNonQuerySP("sp_test_out", outparameters);
+
+
+            var count = outparameters[0].Value;
         }
     }
 }

@@ -15,3 +15,11 @@ D:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer
 D:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.AssemblyInfo.cs
 D:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.dll
 D:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.pdb
+E:\WorkSpace\Faster\Src\FasterContainer\bin\Debug\netstandard2.0\FasterContainer.deps.json
+E:\WorkSpace\Faster\Src\FasterContainer\bin\Debug\netstandard2.0\FasterContainer.dll
+E:\WorkSpace\Faster\Src\FasterContainer\bin\Debug\netstandard2.0\FasterContainer.pdb
+E:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.csproj.CoreCompileInputs.cache
+E:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.AssemblyInfoInputs.cache
+E:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.AssemblyInfo.cs
+E:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.dll
+E:\WorkSpace\Faster\Src\FasterContainer\obj\Debug\netstandard2.0\FasterContainer.pdb

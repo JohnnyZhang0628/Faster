@@ -46,3 +46,5 @@ D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.AssemblyInfo.cs
 D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.csproj.CopyComplete
 D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.dll
 D:\WorkSpace\Faster\UnitTest\obj\Debug\netcoreapp2.1\UnitTest.pdb
+E:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\FasterContainer.dll
+E:\WorkSpace\Faster\UnitTest\bin\Debug\netcoreapp2.1\FasterContainer.pdb

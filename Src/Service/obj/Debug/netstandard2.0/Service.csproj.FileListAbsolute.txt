@@ -40,3 +40,17 @@ D:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.AssemblyInfo.cs
 D:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.csproj.CopyComplete
 D:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.dll
 D:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.pdb
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.csprojAssemblyReference.cache
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.csproj.CoreCompileInputs.cache
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.AssemblyInfoInputs.cache
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.AssemblyInfo.cs
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.dll
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.pdb
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Service.deps.json
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Service.dll
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Service.pdb
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Faster.dll
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Repository.dll
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Repository.pdb
+E:\WorkSpace\Faster\Src\Service\bin\Debug\netstandard2.0\Faster.pdb
+E:\WorkSpace\Faster\Src\Service\obj\Debug\netstandard2.0\Service.csproj.CopyComplete
