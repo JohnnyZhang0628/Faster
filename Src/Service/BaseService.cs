@@ -14,7 +14,7 @@ namespace Service
 
         static BaseService()
         {
-            _dbConnection = new SqlConnection("server=.;database=test;user id=sa;password=55969126");
+            _dbConnection = new SqlConnection("server=.;database=labfiledb2;user id=sa;password=55969126");
         }
 
         public int Add<T>(T model)

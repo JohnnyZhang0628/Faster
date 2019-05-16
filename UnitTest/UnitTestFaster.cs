@@ -91,11 +91,6 @@ namespace UnitTest
             // 根据主键删除
             int delRow = user.Remove<User>(new { UserId = 1, UserName = "张强1" });
 
-            //查询多个数据集
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append(" select  * from tb_user where userid >= 10");
-            strSql.Append(" select  * from tb_user where userid >= 100");
-            var multiple = _dbConnection.ExecuteQueryMultiple<User>(strSql.ToString());
 
         }
 
@@ -117,7 +112,7 @@ namespace UnitTest
 
 
             //get out params 
-            IDbDataParameter[]  outparameters =
+            IDbDataParameter[] outparameters =
             {
                 new SqlParameter { ParameterName = "@count",DbType=DbType.Int32, Direction = ParameterDirection.Output }
             };
@@ -126,6 +121,14 @@ namespace UnitTest
 
 
             var count = outparameters[0].Value;
+        }
+
+        [TestMethod]
+        public void TestBulkInsert()
+        {
+            var query = _dbConnection.GetList<TB_ROLE_BUTTON>("where role_id=1");
+            int count = _dbConnection.ExecuteNonQuery("delete tb_role_button where role_id=1");
+             count = _dbConnection.Add<TB_ROLE_BUTTON>(query);
         }
     }
 }

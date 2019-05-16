@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 
@@ -17,7 +18,7 @@ namespace Faster
         /// <param name="strSql">sql</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public static IEnumerable<T> ExecuteQuery<T>(this IDbConnection connection, string strSql, object param = null) where T : new()
+        public static IEnumerable<T> ExecuteQuery<T>(this IDbConnection connection, string strSql, object param = null)
         {
             return connection.Execute(command =>
             {
@@ -33,14 +34,81 @@ namespace Faster
 
 
         /// <summary>
-        /// 执行查询语句命令(多个数据集)
+        /// 批量新增实体,生成一条语句。优化速度
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="connection"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static int BulkInsert<T>(this IDbConnection connection, IEnumerable<T> param)
+        {
+            StringBuilder strSql = new StringBuilder();
+            return connection.Execute(command =>
+            {
+                //生成语句
+                var myTable = FasterCore<T>.GetPropTable();
+                var query = myTable.Columns.Where(m => m.Identity == false);
+
+                int i = 0;
+                foreach (var item in param)
+                {
+                    strSql.Append($"insert into {myTable.Name} ({string.Join(",", query.Select(m => $"{m.Alias}"))}) values");
+                    strSql.Append($" ({string.Join(",", query.Select(m => $"@{m.Name + i}"))});");
+                    i++;
+                }
+
+                command.CommandText = strSql.ToString();
+                command.AddParams(param);
+
+                return command.ExecuteNonQuery();
+            });
+
+        }
+
+
+        /// <summary>
+        /// 批量删除实体,生成一条语句。优化速度
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="connection"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static int BulkRemove<T>(this IDbConnection connection, IEnumerable<T> param)
+        {
+            StringBuilder strSql = new StringBuilder();
+            return connection.Execute(command =>
+            {
+                //生成语句
+                var myTable = FasterCore<T>.GetPropTable();
+                var query = myTable.Columns.Where(m => m.Identity == false);
+
+                int i = 0;
+                foreach (var item in param)
+                {
+                    strSql.Append($"delete from  {myTable.Name}  where {string.Join(" and ", query.Select(m => $"{m.Alias}=@{m.Name + i}"))} ;");
+                    i++;
+                }
+
+                command.CommandText = strSql.ToString();
+                command.AddParams(param);
+
+                return command.ExecuteNonQuery();
+            });
+
+        }
+
+
+
+
+        /// <summary>
+        /// 执行查询语句，返回动态类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="connection"></param>
         /// <param name="strSql">sql</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> ExecuteQueryMultiple<T>(this IDbConnection connection, string strSql, object param = null) where T : new()
+        public static IEnumerable<dynamic> ExecuteQueryDynamic(this IDbConnection connection, string strSql, object param = null)
         {
             return connection.Execute(command =>
             {
@@ -48,17 +116,13 @@ namespace Faster
                 command.AddParams(param);
                 using (var reader = command.ExecuteReader())
                 {
-                    var multipleList = new List<IEnumerable<T>>();
-                    multipleList.Add(reader.ReaderToEntity<T>());
-                    while (reader.NextResult())
-                    {
-                        multipleList.Add(reader.ReaderToEntity<T>());
-                    }
-                    return multipleList;
+                    return reader.ReaderToDynamic();
                 }
             });
 
         }
+
+
 
         /// <summary>
         /// 执行修改命令语句
@@ -75,20 +139,13 @@ namespace Faster
                 int count = 0;
                 if (param != null)
                 {
-                    if (param is IEnumerable)
-                    {
-                        foreach (var item in param as IEnumerable)
-                        {
-                            command.AddParams(item);
-                            count += command.ExecuteNonQuery();
-                        }
-                    }
-                    else
-                    {
-                        command.AddParams(param);
-                        count = command.ExecuteNonQuery();
-                    }
+
+                    command.AddParams(param);
+                    count = command.ExecuteNonQuery();
+
                 }
+                else
+                    count = command.ExecuteNonQuery();
                 return count;
             });
         }
@@ -141,7 +198,7 @@ namespace Faster
         /// <param name="storeProcedure">存储过程名称</param>
         /// <param name="parameters">参数</param>
         /// <returns></returns>
-        public static IEnumerable<T> ExecuteQuerySP<T>(this IDbConnection connection, string storeProcedure, IDbDataParameter[] parameters = null) where T : new()
+        public static IEnumerable<T> ExecuteQuerySP<T>(this IDbConnection connection, string storeProcedure, IDbDataParameter[] parameters = null)
         {
             return connection.Execute(command =>
             {
@@ -169,13 +226,15 @@ namespace Faster
         /// <typeparam name="T"></typeparam>
         /// <param name="reader"></param>
         /// <returns></returns>
-        private static IEnumerable<T> ReaderToEntity<T>(this IDataReader reader) where T : new()
+        private static IEnumerable<T> ReaderToEntity<T>(this IDataReader reader)
         {
+
+
             List<T> list = new List<T>();
             var myTable = FasterCore<T>.GetPropTable();
             while (reader.Read())
             {
-                T t = new T();
+                T t = Activator.CreateInstance<T>();
                 foreach (var item in myTable.Columns)
                 {
                     if (reader.Contain(item.Alias))
@@ -187,8 +246,39 @@ namespace Faster
                 };
                 list.Add(t);
             }
+
+            return list;
+
+
+        }
+
+
+        /// <summary>
+        /// IDataReader转化为动态类型
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        private static IEnumerable<dynamic> ReaderToDynamic(this IDataReader reader)
+        {
+
+            List<dynamic> list = new List<dynamic>();
+
+            while (reader.Read())
+            {
+                dynamic dynamicObj = new ExpandoObject();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    ((IDictionary<string, object>)dynamicObj).Add(reader.GetName(i), reader.GetValue(i) == DBNull.Value ? null : reader.GetValue(i));
+                }
+                list.Add(dynamicObj);
+            }
+
             return list;
         }
+
+
+
         /// <summary>
         /// 判断IDataReader是否包含某个字段
         /// </summary>
@@ -221,13 +311,40 @@ namespace Faster
                 {
                     var dbParam = command.CreateParameter();
                     dbParam.ParameterName = $"@{prop.Name}";
-                    dbParam.Value = prop.GetValue(param) == DBNull.Value ? null : prop.GetValue(param);
+                    dbParam.Value = prop.GetValue(param) == null ? DBNull.Value : prop.GetValue(param);
                     command.Parameters.Add(dbParam);
                 }
             }
-
-
         }
+
+        /// <summary>
+        /// 批量新增时，将所有参数添加
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="param"></param>
+        private static void AddParams<T>(this IDbCommand command, IEnumerable<T> param)
+        {
+            command.Parameters.Clear();
+            if (param != null)
+            {
+                int i = 0;
+                foreach (var item in param)
+                {
+                    foreach (var prop in item.GetType().GetProperties())
+                    {
+                        var dbParam = command.CreateParameter();
+                        dbParam.ParameterName = $"@{prop.Name + i}";
+                        dbParam.Value = prop.GetValue(item) == null ? DBNull.Value : prop.GetValue(item);
+                        command.Parameters.Add(dbParam);
+
+                    }
+                    i++;
+                }
+
+            }
+        }
+
+
         /// <summary>
         /// 数据库连接
         /// </summary>

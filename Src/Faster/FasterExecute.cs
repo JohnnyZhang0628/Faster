@@ -18,7 +18,7 @@ namespace Faster
         /// <param name="param"> new {id=3}</param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public static IEnumerable<T> GetList<T>(this IDbConnection connection, string strWhere = "", object param = null) where T:new()
+        public static IEnumerable<T> GetList<T>(this IDbConnection connection, string strWhere = "", object param = null)
         {
             return  connection.ExecuteQuery<T>(FasterCore<T>.GetListSql() + strWhere,param);
         }
@@ -30,13 +30,13 @@ namespace Faster
         /// <param name="connection"></param>
         /// <param name="param"> new {id=3}</param>
         /// <returns></returns>
-        public static T Get<T>(this IDbConnection connection, object param ) where T : new()
+        public static T Get<T>(this IDbConnection connection, object param ) 
         {
             return connection.ExecuteQuery<T>(FasterCore<T>.GetSql() , param).FirstOrDefault();
         }
 
         /// <summary>
-        /// 新增实体列表
+        /// 新增实体
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="connection"></param>
@@ -46,7 +46,6 @@ namespace Faster
         {
             return connection.ExecuteNonQuery(FasterCore<T>.GetInsertSql(), param);
         }
-
 
         /// <summary>
         /// 更新实体
@@ -71,7 +70,7 @@ namespace Faster
         {
             return connection.ExecuteNonQuery(FasterCore<T>.GetDeleteSql(), param);
         }
-      
+
         /// <summary>
         /// 分页查询
         /// example
@@ -87,7 +86,7 @@ namespace Faster
         /// <param name="pageNum"></param>
         /// <param name="PageSize"></param>
         /// <returns></returns>
-        public static Tuple<int, IEnumerable<T>> GetPageList<T>(this IDbConnection connection, string order, string strWhere = "", object param = null, int pageNum = 1, int PageSize = 10) where T:new ()
+        public static Tuple<int, IEnumerable<T>> GetPageList<T>(this IDbConnection connection, string order, string strWhere = "", object param = null, int pageNum = 1, int PageSize = 10) 
         {
             int count = connection.ExecuteScalar<int>(FasterCore<T>.GetCountSql() + strWhere, param);
             var query = connection.ExecuteQuery<T>(FasterCore<T>.GetPageListSql( order, strWhere, pageNum, PageSize), param);

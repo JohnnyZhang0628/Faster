@@ -49,7 +49,7 @@ namespace Faster
 
             //判断有没有主键、
             if (myTable.Columns.Where(m => m.Key == true).Count() == 0)
-                throw new Exception($"{type.Name} class must have a key");
+                throw new Exception($"[{typeof(T).Name}] class must have a primary key");
 
         }
 
@@ -62,6 +62,7 @@ namespace Faster
 
         public static string GetSql()
         {
+
             return $"select {string.Join(",", myTable.Columns.Select(m => m.Alias))} from {myTable.Name} " +
                 $"where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"{m.Alias}=@{m.Name}"))}";
         }
@@ -86,6 +87,7 @@ namespace Faster
             return $" delete {myTable.Name} where {string.Join(" and ", myTable.Columns.Where(m => m.Key == true).Select(m => $"{m.Alias}=@{m.Name}"))}";
         }
 
+
         public static string GetCountSql()
         {
 
@@ -98,7 +100,7 @@ namespace Faster
             StringBuilder strSql = new StringBuilder();
             strSql.Append($" select {strColumns} from ");
             strSql.Append($"( select row_number() over(order by {order}) as pageNum,{strColumns} from {myTable.Name}  {strWhere} ) t");
-            strSql.Append($" where pageNum between {(pageNum - 1) * PageSize+1} and {pageNum * PageSize} ");
+            strSql.Append($" where pageNum between {(pageNum - 1) * PageSize + 1} and {pageNum * PageSize} ");
 
             return strSql.ToString();
         }

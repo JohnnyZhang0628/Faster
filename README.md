@@ -1,13 +1,14 @@
 # Faster
 ## 基于.net standard 2.0 的ORM框架，更小、更快是作者追求的目标。
 ## 邮箱：237183141@qq.com
-## 大小
-### 50kb
+## 大小：50kb
 ## 特性
-### 1、支持单表的增删改查、分页。
+### 1、支持单表的增删改查、分页、批量新增、批量删除。
 ### 2、所有查询全部参数化，防止sql注入。
 ### 3、支持db first 模式，直接生成model类。code first作者舍弃了。
 ### 4、支持IOC，依赖注入。
+### 5、支出dynamic动态类型。
+### 6、所有操作都是以事务进行的。
 ## 接口设计模式参考dapper
 ## 问题
 ### Q:dapper和faster的区别？
@@ -16,45 +17,52 @@
 ### 的不二之选。
 
 
-## 基本的单表的CURD
-``` 
-    [TestClass]
-    public class UnitTestFaster
+## Example
+### 所有的方法都基于IDbConnection这个接口。
+### User实体类
+```
+    [FasterTable(TableName = "tb_user")] //自动映射表的别名
+    public class User
     {
 
-        IUserRepository user;
-        IDbConnection _dbConnection;
-        [TestInitialize]
-        public void Init()
-        {
+        [FasterIdentity] //自增长ID
+        [FasterKey] //设为主键
+        public int UserId { get; set; }
 
-            // 获取数据库连接
-            _dbConnection = BaseService._dbConnection;
-            //IOC 测试
-            //1、获取容器
-            Container container = new Container();
-            //2、注册类型
-            container.RegisterType<IUserRepository, UserService>();
-            //3、创建实例
-            user = container.Resolve<IUserRepository>();
 
-        }
+        [FasterColumn(ColumnName = "user_name")] //设置列的别名
+        [FasterKey] //多个主键
+        public string UserName { get; set; } = "zq";
 
-        /// <summary>
-        /// 测试DB First 和Code First
-        /// </summary>
-        [TestMethod]
-        public void TestMethodDB()
-        {
-            //DB First
-            _dbConnection.CreateModels();
-        }
+        public string Password { get; set; }
 
-        [TestMethod]
-        public void TestMethodCURD()
-        {
+        public string Email { get; set; }
 
-            //批量新增
+        public string Phone { get; set; }
+    }
+```
+### 1、获取实体列表。IEnumerable<T> GetList<T>(this IDbConnection connection, string strWhere = "", object param = null)
+```
+	connection.GetList<User>(" where userid>@id", new { id = 10 })
+```
+### 2、根据主键加载单个实体。T Get<T>(this IDbConnection connection, object param ) 
+```
+	connection.Get<User>(new { UserId = 1, UserName = "张强1" });
+```
+### 3、新增实体。int Add<T>(this IDbConnection connection, object param)
+```
+	connection.Add(new User
+                {
+                    UserName = "张强",
+                    Password = "123456",
+                    Email = "237183141@qq.com",
+                    Phone = "18516328675"
+                });
+````
+### 4、批量新增实体。int BulkInsert<T>(this IDbConnection connection, IEnumerable<T> param)
+### BulkInsert 会生产一条语句，一次执行。这是和Dapper的区别。Dapper会遍历一次，执行一次。
+```
+			//批量新增
             List<User> userList = new List<User>();
             for (int i = 0; i < 10000; i++)
             {
@@ -66,63 +74,76 @@
                     Phone = "18516328675"
                 });
             }
-            user.BulkAdd(userList);
+            connection.BulkInsert(userList);
+			// 反射生产的sql语句,然后执行一次，大大提升了批量插入的效率。
+			insert into tb_user(user_name,password,email,phone)values(@username0,@password0,@email0,@phone0);
+			insert into tb_user(user_name,password,email,phone)values(@username1,@password1,@email1,@phone1);
+			insert into tb_user(user_name,password,email,phone)values(@username2,@password2,@email2,@phone2);
+			.........
+			insert into tb_user(user_name,password,email,phone)values(@username9999,@password9999,@email9999,@phone9999);
 
-            //批量修改
-            userList = new List<User>();
+```
+### 5、根据主键更新实体。int Update<T>(this IDbConnection connection, object param)
+```
+	connection.Update<User>(new { UserId = 1, UserName = "张强1" });
+```
+### 6、根据主键删除实体。int Remove<T>(this IDbConnection connection,object param)
+```
+	connection.Remove<User>(new { UserId = 1, UserName = "张强1" });
+```
+### 7、根据主键批量删除实体。int BulkRemove<T>(this IDbConnection connection, IEnumerable<T> param)
+### 类似批量新增，生成一条语句，提高效率。
+```
+			List<User> userList = new List<User>();
             for (int i = 0; i < 100; i++)
             {
                 userList.Add(new User
                 {
-                    UserId = i + 1,
                     UserName = "张强" + (i + 1),
-                    Password = "zq",
-                    Email = "zq@qq.com",
-                    Phone = "zq"
+                    Password = "123456",
+                    Email = "237183141@qq.com",
+                    Phone = "18516328675"
                 });
             }
-            user.BulkUpdate(userList);
+	connection.BulkRemove(userList);
+```
 
-            //根据主键查询
-            var userModel = user.Get<User>(new { UserId = 1, UserName = "张强1" });
-            //根据条件查询 
-            userList = user.GetList<User>(" where userid>@id", new { id = 10 }).ToList();
-            //分页查询
-            var result = user.GetPageList<User>("userid ", " where userid>@id", new { id = 10 }, 2, 20);
-            // 满足条件总页数
-            int count = result.Item1;
-            // 第20条，到40条
-            IEnumerable<User> list = result.Item2;
+### 8、分页查询。Tuple<int, IEnumerable<T>> GetPageList<T>(this IDbConnection connection, string order, string strWhere = "", object param = null, int pageNum = 1, int PageSize = 10) 
+```
+	var result=connection.GetPageList<User>("userid,username desc"," where userid>@id",new {id=10},2,20);
+	//当前符合条件的记录数
+	int count=result.Item1;
+	// 第21条-40条 实体列表
+	var list=result.Item2;
+```
+## 执行sql语句
+### 1、获取第一行第一列的结果。T GetValue<T>(this IDbConnection connection, string strSql, object param = null)
+```
+	connection.GetValue<int>("select count(*) from tb_user where userid>@userid",new {userid=10});
+```
+### 2、获取数据集。IEnumerable<T> ExecuteQuery<T>(this IDbConnection connection, string strSql, object param = null)
+```
+	connection.ExecuteQuery<User>("select * from tb_user where userid>@userid",new {userid=10});
+```
 
-            // 根据主键删除
-            int delRow = user.Remove<User>(new { UserId = 1, UserName = "张强1" });
+### 3、获取动态类型数据集。IEnumerable<dynamic> ExecuteQueryDynamic(this IDbConnection connection, string strSql, object param = null)
+```
+	connection.ExecuteQueryDynamic("select * from tb_user where userid>@userid",new {userid=10});
+```
 
-            //查询多个数据集
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append(" select  * from tb_user where userid >= 10");
-            strSql.Append(" select  * from tb_user where userid >= 100");
-            var multiple = _dbConnection.ExecuteQueryMultiple<User>(strSql.ToString());
-
-        }
-
-        /// <summary>
-        /// 测试存储过程查询
-        /// </summary>
-        [TestMethod]
-        public void TestMethodSP()
-        {
-            // no params
-            var query = _dbConnection.ExecuteQuerySP<User>("sp_test_no_params");
-
-            // query with params
+### 4、执行修改命令语句。int ExecuteNonQuery(this IDbConnection connection, string strSql, object param = null)
+```
+	connection.ExecuteNonQuery("delete from tb_user where userid>@userid",new {userid=10});
+```
+### 5、执行无返回值的存储过程。int ExecuteNonQuerySP(this IDbConnection connection, string storeProcedure, IDbDataParameter[] parameters = null)
+```
             IDbDataParameter[] parameters =
             {
                 new SqlParameter("@user_id",2)
             };
             query = _dbConnection.ExecuteQuerySP<User>("sp_test", parameters);
 
-
-            //get out params 
+			// 获取返回值
             IDbDataParameter[]  outparameters =
             {
                 new SqlParameter { ParameterName = "@count",DbType=DbType.Int32, Direction = ParameterDirection.Output }
@@ -132,6 +153,25 @@
 
 
             var count = outparameters[0].Value;
-        }
-    }
 ```
+
+### 6、执行查询存储过程。IEnumerable<T> ExecuteQuerySP<T>(this IDbConnection connection, string storeProcedure, IDbDataParameter[] parameters = null)
+```
+	connection.ExecuteQuerySP<User>("sp_test_no_params");
+```
+## DB First 生成Model类 void CreateModels(this IDbConnection connection, string nameSpace = "Model")
+### connection.CreateModels();
+
+## IOC 容易依赖注入
+### 
+```
+            //1、获取容器
+            Container container = new Container();
+            //2、注册类型
+            container.RegisterType<IUserRepository, UserService>();
+            //3、创建实例
+            user = container.Resolve<IUserRepository>();
+
+```
+
+

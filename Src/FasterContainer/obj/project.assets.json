@@ -30,7 +30,7 @@
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "79qbCm587A6ERQzw1UJQLm0RtV4jRhIXa3dSIhVMn1WtNXynGk+wfMLtJ4QSeB4MlvsPpgPYKIpTjYnY2vpxtg==",
+      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -179,23 +179,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\18516\\.nuget\\packages\\": {},
+    "C:\\Users\\23718\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj",
+      "projectUniqueName": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj",
       "projectName": "FasterContainer",
-      "projectPath": "E:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj",
-      "packagesPath": "C:\\Users\\18516\\.nuget\\packages\\",
-      "outputPath": "E:\\WorkSpace\\Faster\\Src\\FasterContainer\\obj\\",
+      "projectPath": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\FasterContainer.csproj",
+      "packagesPath": "C:\\Users\\23718\\.nuget\\packages\\",
+      "outputPath": "D:\\WorkSpace\\Faster\\Src\\FasterContainer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\18516\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\23718\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
